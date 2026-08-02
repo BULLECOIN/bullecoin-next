@@ -8,27 +8,14 @@ type DexPair = {
   dexId?: string;
   url?: string;
   pairAddress?: string;
-  baseToken?: {
-    address?: string;
-    name?: string;
-    symbol?: string;
-  };
-  quoteToken?: {
-    address?: string;
-    name?: string;
-    symbol?: string;
-  };
+  baseToken?: { address?: string; name?: string; symbol?: string };
   priceUsd?: string;
-  priceNative?: string;
-  txns?: {
-    h24?: { buys?: number; sells?: number };
-  };
+  txns?: { h24?: { buys?: number; sells?: number } };
   volume?: { h24?: number };
   priceChange?: { h24?: number };
   liquidity?: { usd?: number };
   fdv?: number;
   marketCap?: number;
-  pairCreatedAt?: number;
 };
 
 function numberFromEnv(name: string) {
@@ -37,15 +24,25 @@ function numberFromEnv(name: string) {
 }
 
 export async function GET() {
-  const tokenAddress = process.env.BULLE_TOKEN_ADDRESS?.trim() ?? "";
-  const pumpUrl = process.env.NEXT_PUBLIC_BULLE_PUMP_URL?.trim() ?? "";
+  const tokenAddress = (
+    process.env.BULLE_TOKEN_ADDRESS ??
+    process.env.NEXT_PUBLIC_BULLE_TOKEN_ADDRESS ??
+    ""
+  ).trim();
+  const treasuryWallet = (
+    process.env.BULLE_TREASURY_WALLET ??
+    process.env.NEXT_PUBLIC_BULLE_TREASURY_WALLET ??
+    ""
+  ).trim();
+  const pumpUrl = (process.env.NEXT_PUBLIC_BULLE_PUMP_URL ?? "").trim();
   const creatorFeesSol = numberFromEnv("BULLE_CREATOR_FEES_SOL");
   const distributedSol = numberFromEnv("BULLE_DISTRIBUTED_SOL");
   const rewardPoolSol = creatorFeesSol * 0.3;
 
   const base = {
-    status: tokenAddress ? "searching" : "awaiting_launch",
+    status: tokenAddress ? "market_syncing" : "awaiting_token",
     tokenAddress,
+    treasuryWallet,
     pumpUrl,
     priceUsd: null as number | null,
     priceChange24h: null as number | null,
@@ -55,15 +52,14 @@ export async function GET() {
     volume24hUsd: null as number | null,
     buys24h: null as number | null,
     sells24h: null as number | null,
-    holders: null as number | null,
     pairUrl: null as string | null,
-    pairAddress: null as string | null,
-    dexId: null as string | null,
     creatorFeesSol,
     rewardPoolSol,
     distributedSol,
     updatedAt: new Date().toISOString(),
-    source: tokenAddress ? "DEX Screener + verified manual fee totals" : "Pre-launch configuration",
+    source: tokenAddress
+      ? "DEX Screener + verified project records"
+      : "Waiting for official token configuration",
   };
 
   if (!tokenAddress) {
@@ -82,15 +78,13 @@ export async function GET() {
     );
 
     if (!response.ok) {
-      return NextResponse.json(
-        { ...base, status: "data_pending" },
-        { headers: { "Cache-Control": "no-store" } },
-      );
+      return NextResponse.json(base, {
+        headers: { "Cache-Control": "no-store" },
+      });
     }
 
     const pairs = (await response.json()) as DexPair[];
     const validPairs = Array.isArray(pairs) ? pairs : [];
-
     const bestPair = validPairs
       .filter(
         (pair) =>
@@ -103,10 +97,9 @@ export async function GET() {
       )[0];
 
     if (!bestPair) {
-      return NextResponse.json(
-        { ...base, status: "pair_pending" },
-        { headers: { "Cache-Control": "no-store" } },
-      );
+      return NextResponse.json(base, {
+        headers: { "Cache-Control": "no-store" },
+      });
     }
 
     return NextResponse.json(
@@ -141,15 +134,11 @@ export async function GET() {
             ? bestPair.txns.h24.sells
             : null,
         pairUrl: bestPair.url ?? null,
-        pairAddress: bestPair.pairAddress ?? null,
-        dexId: bestPair.dexId ?? null,
-        updatedAt: new Date().toISOString(),
       },
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch (error) {
     console.error("launch-data error", error);
-
     return NextResponse.json(
       { ...base, status: "temporarily_unavailable" },
       { headers: { "Cache-Control": "no-store" } },

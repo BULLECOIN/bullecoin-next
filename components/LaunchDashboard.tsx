@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type LaunchData = {
   status:
-    | "awaiting_launch"
-    | "searching"
-    | "pair_pending"
-    | "data_pending"
+    | "awaiting_token"
+    | "market_syncing"
     | "live"
     | "temporarily_unavailable";
   tokenAddress: string;
+  treasuryWallet: string;
   pumpUrl: string;
   priceUsd: number | null;
   priceChange24h: number | null;
@@ -20,10 +19,7 @@ type LaunchData = {
   volume24hUsd: number | null;
   buys24h: number | null;
   sells24h: number | null;
-  holders: number | null;
   pairUrl: string | null;
-  pairAddress: string | null;
-  dexId: string | null;
   creatorFeesSol: number;
   rewardPoolSol: number;
   distributedSol: number;
@@ -31,13 +27,10 @@ type LaunchData = {
   source: string;
 };
 
-const launchAt =
-  process.env.NEXT_PUBLIC_BULLE_LAUNCH_AT ??
-  "2026-08-02T16:00:00-06:00";
-
 const emptyData: LaunchData = {
-  status: "awaiting_launch",
+  status: "awaiting_token",
   tokenAddress: "",
+  treasuryWallet: "",
   pumpUrl: "",
   priceUsd: null,
   priceChange24h: null,
@@ -47,19 +40,16 @@ const emptyData: LaunchData = {
   volume24hUsd: null,
   buys24h: null,
   sells24h: null,
-  holders: null,
   pairUrl: null,
-  pairAddress: null,
-  dexId: null,
   creatorFeesSol: 0,
   rewardPoolSol: 0,
   distributedSol: 0,
   updatedAt: "",
-  source: "Pre-launch configuration",
+  source: "Waiting for official token configuration",
 };
 
 function formatUsd(value: number | null, precise = false) {
-  if (value === null) return "PENDING";
+  if (value === null) return "SYNCING";
 
   if (precise && value > 0 && value < 0.01) {
     return `$${value.toLocaleString("en-US", {
@@ -77,48 +67,12 @@ function formatUsd(value: number | null, precise = false) {
 
 function shortAddress(address: string) {
   if (!address) return "PENDING";
-  return `${address.slice(0, 6)}...${address.slice(-6)}`;
-}
-
-function formatRemaining(milliseconds: number) {
-  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
-
-  return {
-    days: Math.floor(totalSeconds / 86400),
-    hours: Math.floor((totalSeconds % 86400) / 3600),
-    minutes: Math.floor((totalSeconds % 3600) / 60),
-    seconds: totalSeconds % 60,
-  };
+  return `${address.slice(0, 7)}...${address.slice(-7)}`;
 }
 
 export default function LaunchDashboard() {
   const [data, setData] = useState<LaunchData>(emptyData);
-  const [remaining, setRemaining] = useState<number | null>(null);
-  const [copied, setCopied] = useState(false);
-
-  const launchTimestamp = useMemo(
-    () => new Date(launchAt).getTime(),
-    [],
-  );
-
-  const isLaunchTime =
-    remaining !== null && remaining <= 0;
-
-  const timer =
-    remaining === null
-      ? null
-      : formatRemaining(remaining);
-
-  useEffect(() => {
-    const updateCountdown = () => {
-      setRemaining(launchTimestamp - Date.now());
-    };
-
-    updateCountdown();
-    const countdown = window.setInterval(updateCountdown, 1000);
-
-    return () => window.clearInterval(countdown);
-  }, [launchTimestamp]);
+  const [copied, setCopied] = useState<"contract" | "treasury" | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -128,103 +82,74 @@ export default function LaunchDashboard() {
         });
 
         if (!response.ok) return;
-
-        const result = (await response.json()) as LaunchData;
-        setData(result);
+        setData((await response.json()) as LaunchData);
       } catch {
-        // Preserve the last successful data snapshot.
+        // Preserve the last successful market snapshot.
       }
     }
 
     loadData();
     const refresh = window.setInterval(loadData, 20_000);
-
     return () => window.clearInterval(refresh);
   }, []);
 
-  async function copyContract() {
-    if (!data.tokenAddress) return;
-
-    await navigator.clipboard.writeText(data.tokenAddress);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+  async function copyValue(
+    value: string,
+    type: "contract" | "treasury",
+  ) {
+    if (!value) return;
+    await navigator.clipboard.writeText(value);
+    setCopied(type);
+    window.setTimeout(() => setCopied(null), 1800);
   }
 
-  const live = data.status === "live";
-  const buyUrl = data.pumpUrl || null;
-  const marketUrl = data.pairUrl || null;
+  const tokenConfigured = Boolean(data.tokenAddress);
+  const marketLive = data.status === "live";
 
   return (
-    <section className="launchSection" id="launch">
+    <section className="launchSection liveSection" id="live">
       <div className="contentWidth">
         <div className="launchTopline">
           <div>
-            <p className="sectionLabel">BULLE OFFICIAL LAUNCH</p>
+            <p className="sectionLabel">BULLE OFFICIAL MARKET</p>
             <h2>
-              PREPARE FOR
-              <span>THE STAMPEDE.</span>
+              THE STAMPEDE
+              <span>IS LIVE.</span>
             </h2>
           </div>
 
-          <div className={`launchStatus ${live ? "launchLive" : ""}`}>
+          <div className="launchStatus launchLive">
             <i />
             <div>
               <small>STATUS</small>
               <strong>
-                {live
-                  ? "BULLE LIVE"
-                  : isLaunchTime
-                    ? "LAUNCH WINDOW OPEN"
-                    : "COUNTDOWN ACTIVE"}
+                {tokenConfigured
+                  ? marketLive
+                    ? "BULLE LIVE"
+                    : "MARKET DATA SYNCING"
+                  : "TOKEN CONFIGURATION PENDING"}
               </strong>
             </div>
           </div>
         </div>
 
-        <div className="launchCountdownMega">
-          <div className="launchCountdownMegaHeader">
-            <div>
-              <small>OFFICIAL TARGET TIME</small>
-              <strong>4:00 PM — MONTERREY</strong>
-              <span>Sunday, August 2, 2026 · America/Monterrey</span>
-            </div>
-
+        <div className="liveHeroPanel">
+          <div>
+            <small>OFFICIAL CONTRACT ADDRESS</small>
+            <strong>{data.tokenAddress || "ADD CA IN VERCEL"}</strong>
             <p>
-              {live
-                ? "BULLE IS LIVE"
-                : isLaunchTime
-                  ? "THE LAUNCH WINDOW IS OPEN"
-                  : "THE STAMPEDE BEGINS IN"}
+              Always verify this exact mint before buying or connecting to any
+              third-party platform.
             </p>
           </div>
 
-          <div className="launchTimerMega" aria-label="BULLE launch countdown">
-            <div>
-              <strong>{timer?.days ?? "--"}</strong>
-              <span>DAYS</span>
-            </div>
-            <b>:</b>
-            <div>
-              <strong>{timer?.hours ?? "--"}</strong>
-              <span>HOURS</span>
-            </div>
-            <b>:</b>
-            <div>
-              <strong>{timer?.minutes ?? "--"}</strong>
-              <span>MINUTES</span>
-            </div>
-            <b>:</b>
-            <div>
-              <strong>{timer?.seconds ?? "--"}</strong>
-              <span>SECONDS</span>
-            </div>
-          </div>
-
-          <div className="launchCountdownMegaFooter">
-            <span>LIVE DATA ACTIVATES AFTER THE OFFICIAL MINT IS ADDED</span>
-            <i />
-            <span>VERIFY EVERY LINK THROUGH BULLE OFFICIAL CHANNELS</span>
-          </div>
+          <button
+            type="button"
+            onClick={() => copyValue(data.tokenAddress, "contract")}
+            disabled={!data.tokenAddress}
+          >
+            {copied === "contract" ? "CONTRACT COPIED" : "COPY OFFICIAL CA"}
+          </button>
         </div>
 
         <div className="launchMetrics">
@@ -233,7 +158,7 @@ export default function LaunchDashboard() {
             <strong>{formatUsd(data.priceUsd, true)}</strong>
             <span>
               {data.priceChange24h === null
-                ? "Awaiting market data"
+                ? "DEX data is syncing"
                 : `${data.priceChange24h >= 0 ? "+" : ""}${data.priceChange24h.toFixed(2)}% / 24H`}
             </span>
           </article>
@@ -255,16 +180,16 @@ export default function LaunchDashboard() {
             <strong>{formatUsd(data.volume24hUsd)}</strong>
             <span>
               {data.buys24h === null
-                ? "Awaiting trades"
+                ? "Awaiting trade data"
                 : `${data.buys24h} buys · ${data.sells24h ?? 0} sells`}
             </span>
           </article>
         </div>
 
-        <div className="launchTransparencyGrid">
+        <div className="launchTransparencyGrid liveTransparencyGrid">
           <article className="launchFees">
             <div className="launchCardHeading">
-              <small>TRANSPARENCY</small>
+              <small>COMMUNITY TRANSPARENCY</small>
               <h3>CREATOR FEES</h3>
             </div>
 
@@ -274,7 +199,7 @@ export default function LaunchDashboard() {
                 <strong>◎ {data.creatorFeesSol.toFixed(4)} SOL</strong>
               </div>
               <div>
-                <span>Weekly Bull Runner pool — 30%</span>
+                <span>Bull Runner community pool — 30%</span>
                 <strong>◎ {data.rewardPoolSol.toFixed(4)} SOL</strong>
               </div>
               <div>
@@ -284,53 +209,64 @@ export default function LaunchDashboard() {
             </div>
 
             <p>
-              Fee totals remain at zero until manually verified from official
-              creator-fee records. The site does not estimate or fabricate fees.
+              Values remain at zero until actual creator-fee records are
+              verified. BULLE does not display estimated or fabricated totals.
             </p>
           </article>
 
-          <article className="launchContract">
+          <article className="launchContract treasuryCard">
             <div className="launchCardHeading">
-              <small>OFFICIAL TOKEN</small>
-              <h3>VERIFY THE MINT</h3>
+              <small>OFFICIAL PROJECT WALLET</small>
+              <h3>BULLE TREASURY</h3>
             </div>
 
-            <code>{shortAddress(data.tokenAddress)}</code>
+            <code title={data.treasuryWallet}>
+              {shortAddress(data.treasuryWallet)}
+            </code>
 
             <button
               type="button"
-              onClick={copyContract}
-              disabled={!data.tokenAddress}
+              onClick={() => copyValue(data.treasuryWallet, "treasury")}
+              disabled={!data.treasuryWallet}
             >
-              {copied ? "COPIED" : "COPY CONTRACT"}
+              {copied === "treasury" ? "WALLET COPIED" : "COPY TREASURY WALLET"}
             </button>
 
+            {data.treasuryWallet ? (
+              <a
+                href={`https://solscan.io/account/${data.treasuryWallet}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                VIEW ON SOLSCAN
+              </a>
+            ) : (
+              <span className="treasuryPending">TREASURY WALLET PENDING</span>
+            )}
+
             <p>
-              Never interact with an address posted by an unofficial account.
-              Verify the mint here and through the official BULLE account.
+              This public wallet is intended for community rewards and project
+              activity. Never send funds based on an address shared by an
+              unofficial account.
             </p>
           </article>
         </div>
 
         <div className="launchActions">
-          {buyUrl ? (
-            <a href={buyUrl} target="_blank" rel="noreferrer">
-              BUY ON PUMP.FUN
+          {data.pumpUrl ? (
+            <a href={data.pumpUrl} target="_blank" rel="noreferrer">
+              BUY BULLE
             </a>
           ) : (
-            <span className="launchDisabledAction">
-              PUMP.FUN LINK PENDING
-            </span>
+            <span className="launchDisabledAction">BUY LINK PENDING</span>
           )}
 
-          {marketUrl ? (
-            <a href={marketUrl} target="_blank" rel="noreferrer">
-              VIEW MARKET
+          {data.pairUrl ? (
+            <a href={data.pairUrl} target="_blank" rel="noreferrer">
+              VIEW DEXSCREENER
             </a>
           ) : (
-            <span className="launchDisabledAction">
-              MARKET PAIR PENDING
-            </span>
+            <span className="launchDisabledAction">DEX DATA SYNCING</span>
           )}
 
           <a href="/bull-runner">PLAY BULL RUNNER</a>
@@ -338,8 +274,8 @@ export default function LaunchDashboard() {
 
         <div className="launchSource">
           <span>
-            Market data refreshes every 20 seconds after the official mint and
-            a supported Solana pair are available.
+            Market information refreshes every 20 seconds. Creator-fee values
+            are updated only after verification.
           </span>
           <small>
             {data.updatedAt

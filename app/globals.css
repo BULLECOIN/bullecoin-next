@@ -1375,3 +1375,77 @@
     display: none;
   }
 }
+
+
+/* BULLE V12.2 — LIVE MARKET AND TREASURY */
+.liveSection .launchTopline h2 span {
+  text-shadow: 0 0 38px rgba(141,255,47,.25);
+}
+.liveHeroPanel {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: center;
+  margin-top: 46px;
+  padding: clamp(24px,4vw,44px);
+  border: 1px solid var(--green);
+  background:
+    radial-gradient(circle at 85% 30%,rgba(141,255,47,.14),transparent 38%),
+    linear-gradient(135deg,rgba(141,255,47,.06),rgba(2,4,2,.96));
+  box-shadow: 0 0 70px rgba(141,255,47,.07);
+}
+.liveHeroPanel small,
+.liveHeroPanel strong,
+.liveHeroPanel p { display:block; }
+.liveHeroPanel small {
+  color:var(--green);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.liveHeroPanel strong {
+  margin-top:14px;
+  overflow-wrap:anywhere;
+  font-family:var(--font-orbitron),Arial,sans-serif;
+  font-size:clamp(18px,3vw,36px);
+  line-height:1.25;
+}
+.liveHeroPanel p {
+  max-width:780px;
+  margin:14px 0 0;
+  color:var(--muted);
+  line-height:1.7;
+}
+.liveHeroPanel button {
+  min-width:210px;
+  min-height:58px;
+  padding:12px 20px;
+  border:1px solid var(--green);
+  background:var(--green);
+  color:#031003;
+  font-weight:900;
+  cursor:pointer;
+}
+.liveHeroPanel button:disabled { opacity:.45; cursor:not-allowed; }
+.liveTransparencyGrid { grid-template-columns:1fr 1fr; }
+.treasuryCard a,
+.treasuryPending {
+  display:grid;
+  place-items:center;
+  min-height:48px;
+  margin-top:10px;
+  border:1px solid var(--green);
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.treasuryPending {
+  border-color:var(--line);
+  color:var(--muted);
+}
+@media(max-width:850px){
+  .liveHeroPanel,
+  .liveTransparencyGrid { grid-template-columns:1fr; }
+  .liveHeroPanel button { width:100%; }
+}

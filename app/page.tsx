@@ -21,7 +21,7 @@ export default function Home() {
         </a>
 
         <nav>
-          <a href="#launch">Launch</a>
+          <a href="#live">BULLE Live</a>
           <a href="#about">About</a>
           <a href="#tokenomics">Tokenomics</a>
           <a href="#dashboard">Dashboard</a>
@@ -92,7 +92,7 @@ export default function Home() {
             <div className="aboutCards">
               <article><span>01</span><h3>COMMUNITY FIRST</h3><p>Built with the herd and designed for community growth.</p></article>
               <article><span>02</span><h3>TRANSPARENT</h3><p>Official wallets, contracts and updates will be publicly verifiable.</p></article>
-              <article><span>03</span><h3>ZERO HIDDEN TAX</h3><p>Launch mechanics will be clearly disclosed before release.</p></article>
+              <article><span>03</span><h3>ZERO HIDDEN TAX</h3><p>Official market information and community activity are published transparently.</p></article>
               <article><span>04</span><h3>BUILT ON SOLANA</h3><p>Fast, scalable and designed for the Solana ecosystem.</p></article>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function Home() {
             <div className="launchStatus">
               <span>STATUS</span>
               <strong>TOKEN NOT LAUNCHED YET</strong>
-              <p>Final supply, liquidity allocation and launch mechanics will be published before the official release.</p>
+              <p>BULLE is live. Always verify the official contract and market links before interacting.</p>
               <small>Do not interact with tokens claiming to be BULLE until the verified contract is published on bullecoin.io.</small>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function Home() {
             <article><small>VERIFICATION</small><strong>BULLECOIN.IO</strong></article>
           </div>
 
-          <p className="tokenomicsDisclaimer">Draft allocation for discussion only. Percentages and launch mechanics may change before the official token creation.</p>
+          <p className="tokenomicsDisclaimer">Community reward allocations are subject to published rules, verification and actual creator fees received.</p>
         </div>
       </section>
 
@@ -157,7 +157,7 @@ export default function Home() {
         <div>
           <p className="sectionLabel">06 / COMMUNITY</p>
           <h2>JOIN THE HERD.</h2>
-          <p className="communityText">Stronger Community. Stronger Future. Follow only the official BULLE channels for verified launch information.</p>
+          <p className="communityText">Stronger Community. Stronger Future. Follow only the official BULLE channels for verified contract, treasury and market information.</p>
           <div className="socialLinks">
             <a href={xUrl} target="_blank" rel="noreferrer">X / @BulleCoinOF</a>
             <a href={telegramUrl} target="_blank" rel="noreferrer">TELEGRAM / OFFICIAL CHANNEL</a>
