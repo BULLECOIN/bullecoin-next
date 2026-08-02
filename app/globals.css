@@ -11,3 +11,214 @@
 @keyframes logoEntrance{from{opacity:0;transform:translateY(38px) scale(.9);filter:drop-shadow(0 0 0 rgba(84,255,24,0)) brightness(.65)}to{opacity:1;transform:translateY(0) scale(1);filter:drop-shadow(0 0 18px rgba(84,255,24,.55)) drop-shadow(0 0 55px rgba(84,255,24,.22)) brightness(1)}}@keyframes logoFloating{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(.4deg)}}@keyframes glowPulse{0%,100%{opacity:.58;transform:scale(.94)}50%{opacity:1;transform:scale(1.08)}}@keyframes rotation{to{transform:rotate(360deg)}}@keyframes ticker{to{transform:translateX(-50%)}}@keyframes buttonGlow{0%{left:-120%}45%,100%{left:140%}}@keyframes allocationLoad{from{width:0;opacity:0}to{opacity:1}}
 @media(max-width:900px){nav{display:none}.hero{width:min(100% - 32px,760px);min-height:auto;grid-template-columns:1fr;gap:20px;padding-top:40px}.heroContent{padding-left:0}.heroVisual{order:-1;min-height:430px;padding-top:20px;transform:none}.heroLogo{width:min(420px,86vw)}.aboutGrid,.tokenomicsHeader{grid-template-columns:1fr;gap:45px}.aboutCards,.allocationGrid,.tokenFacts,.roadmap{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.navbar,.hero,.contentWidth,.infoSection,footer{width:calc(100% - 24px)}.navButton{display:none}.hero{padding-top:35px}.hero h1,.infoSection h2,.community h2{font-size:48px;letter-spacing:-3px}.heroVisual{min-height:340px}.actions{flex-direction:column}.aboutSection,.tokenomicsSection{padding:85px 0}.aboutIntro h2,.tokenomicsHeader h2{font-size:44px;letter-spacing:-3px}.aboutCards,.allocationGrid,.tokenFacts,.roadmap{grid-template-columns:1fr}.allocationCard{min-height:260px}.socialLinks{flex-direction:column}}
+
+
+/* BULL HUB 2.0 OVERRIDES */
+.bullHubToolbarV2 {
+  grid-template-columns: minmax(250px, 1fr) auto auto auto;
+}
+.bullHubToolbar select {
+  min-height: 50px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  outline: none;
+  background: #071007;
+  color: var(--foreground);
+}
+.bullHubFilters {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.bullHubFilters label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.bullHubFilters input {
+  accent-color: var(--green);
+}
+.bullHubFilters > span {
+  margin-left: auto;
+  color: var(--green);
+}
+.bullHubGridV2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.bullHubCardV2 {
+  min-height: 510px;
+}
+.bullHubBadges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+.bullHubCardTop .newBadge {
+  border-color: #63d7ff;
+  color: #63d7ff;
+}
+.bulleScore {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+.bulleScore small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+.bulleScore strong {
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: 54px;
+  line-height: 1;
+}
+.bulleScore > div:first-child > span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.riskBadge {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.riskLOWER {
+  border-color: var(--green);
+  color: var(--green);
+}
+.riskMEDIUM {
+  border-color: #ffd463;
+  color: #ffd463;
+}
+.riskHIGH {
+  border-color: #ff6363;
+  color: #ff6363;
+}
+.scoreBar {
+  width: 100%;
+  height: 7px;
+  margin-top: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,.07);
+}
+.scoreBar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #4cff16, #b6ff4d);
+  box-shadow: 0 0 18px rgba(84,255,24,.55);
+}
+.bullHubStatsV2 {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 28px;
+}
+.scoreDetails {
+  margin-top: 24px;
+  padding: 12px 0 54px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+.scoreDetails summary {
+  color: var(--green);
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.scoreDetails ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  line-height: 1.7;
+}
+.scoreMethod {
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  background: rgba(165,255,63,.035);
+}
+.scoreMethod strong {
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+.scoreMethod p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media (max-width: 1050px) {
+  .bullHubToolbarV2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .bullHubGridV2 {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .bullHubToolbarV2 {
+    grid-template-columns: 1fr;
+  }
+  .bullHubFilters {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .bullHubFilters > span {
+    margin-left: 0;
+  }
+  .bullHubStatsV2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .bullHubCardV2 {
+    min-height: 560px;
+  }
+}
+/* FIX: tamaño de iconos en Bull Hub */
+.bullHubIdentity img {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  min-height: 44px !important;
+  max-height: 44px !important;
+  flex: 0 0 44px !important;
+  display: block;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+
+.bullHubFallback {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  flex: 0 0 44px !important;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  background: rgba(165, 255, 63, 0.05);
+}
+
+.bullHubIdentity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

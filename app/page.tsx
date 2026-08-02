@@ -126,6 +126,10 @@ export default function Home() {
         </div>
       </section>
 
+      <TokenDashboard />
+
+      <BullHub />
+
       <section className="infoSection" id="roadmap">
         <p className="sectionLabel">05 / ROADMAP</p>
         <h2>FROM SYMBOL<span>TO ECOSYSTEM.</span></h2>
