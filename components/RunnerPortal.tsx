@@ -44,7 +44,9 @@ function formatCountdown(ms: number) {
 export default function RunnerPortal() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [updatedAt, setUpdatedAt] = useState("");
-  const [remaining, setRemaining] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState(
+    getNextMondayUtc().getTime() - Date.now(),
+  );
 
   useEffect(() => {
     async function loadLeaderboard() {
@@ -63,15 +65,11 @@ export default function RunnerPortal() {
       }
     }
 
-    const updateCountdown = () => {
-      setRemaining(getNextMondayUtc().getTime() - Date.now());
-    };
-
     loadLeaderboard();
-    updateCountdown();
-
     const refresh = window.setInterval(loadLeaderboard, 60_000);
-    const countdown = window.setInterval(updateCountdown, 1000);
+    const countdown = window.setInterval(() => {
+      setRemaining(getNextMondayUtc().getTime() - Date.now());
+    }, 1000);
 
     return () => {
       window.clearInterval(refresh);
@@ -80,10 +78,7 @@ export default function RunnerPortal() {
   }, []);
 
   const topTen = useMemo(() => leaderboard.slice(0, 10), [leaderboard]);
-  const timer =
-    remaining === null
-      ? null
-      : formatCountdown(remaining);
+  const timer = formatCountdown(remaining);
 
   return (
     <main className="runnerPortal">
@@ -141,10 +136,10 @@ export default function RunnerPortal() {
           <small>CURRENT WEEK ENDS IN</small>
 
           <div className="runnerPortalTimer">
-            <div><strong>{timer?.days ?? "--"}</strong><span>DAYS</span></div>
-            <div><strong>{timer?.hours ?? "--"}</strong><span>HRS</span></div>
-            <div><strong>{timer?.minutes ?? "--"}</strong><span>MIN</span></div>
-            <div><strong>{timer?.seconds ?? "--"}</strong><span>SEC</span></div>
+            <div><strong>{timer.days}</strong><span>DAYS</span></div>
+            <div><strong>{timer.hours}</strong><span>HRS</span></div>
+            <div><strong>{timer.minutes}</strong><span>MIN</span></div>
+            <div><strong>{timer.seconds}</strong><span>SEC</span></div>
           </div>
 
           <p>

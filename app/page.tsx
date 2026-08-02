@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LaunchDashboard from "@/components/LaunchDashboard";
 import TokenDashboard from "@/components/TokenDashboard";
 import BullHub from "@/components/BullHub";
 import BullRunner from "@/components/BullRunner";
@@ -20,6 +21,7 @@ export default function Home() {
         </a>
 
         <nav>
+          <a href="#launch">Launch</a>
           <a href="#about">About</a>
           <a href="#tokenomics">Tokenomics</a>
           <a href="#dashboard">Dashboard</a>
@@ -129,6 +131,8 @@ export default function Home() {
           <p className="tokenomicsDisclaimer">Draft allocation for discussion only. Percentages and launch mechanics may change before the official token creation.</p>
         </div>
       </section>
+
+      <LaunchDashboard />
 
       <TokenDashboard />
 

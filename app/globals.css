@@ -874,3 +874,504 @@
     place-items: center;
   }
 }
+
+
+/* BULLE V12 — LAUNCH DASHBOARD */
+.launchSection {
+  position: relative;
+  padding: 130px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 78% 16%, rgba(141,255,47,.17), transparent 31%),
+    radial-gradient(circle at 12% 76%, rgba(141,255,47,.07), transparent 28%),
+    linear-gradient(180deg,#020402,#071007);
+}
+.launchTopline {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 50px;
+  align-items: end;
+}
+.launchTopline h2 {
+  margin: 20px 0 0;
+  font-family: var(--font-orbitron),Arial,sans-serif;
+  font-size: clamp(52px,7vw,100px);
+  line-height: .9;
+  letter-spacing: -6px;
+}
+.launchTopline h2 span {
+  display: block;
+  color: var(--green);
+}
+.launchStatus {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  min-width: 255px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: rgba(141,255,47,.025);
+}
+.launchStatus i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffd84d;
+  box-shadow: 0 0 20px #ffd84d;
+}
+.launchStatus.launchLive i {
+  background: var(--green);
+  box-shadow: 0 0 24px var(--green);
+  animation: launchPulse 1.4s infinite;
+}
+.launchStatus small,
+.launchStatus strong {
+  display: block;
+}
+.launchStatus small {
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.launchStatus strong {
+  margin-top: 5px;
+  color: var(--green);
+  font-family: var(--font-orbitron),Arial,sans-serif;
+  font-size: 13px;
+}
+@keyframes launchPulse {
+  50% { transform: scale(1.35); opacity: .65; }
+}
+.launchCountdownPanel {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 30px;
+  align-items: center;
+  margin-top: 50px;
+  padding: 26px;
+  border: 1px solid var(--green);
+  background: linear-gradient(100deg,rgba(141,255,47,.06),rgba(2,4,2,.94));
+}
+.launchCountdownCopy small,
+.launchCountdownCopy strong,
+.launchCountdownCopy span {
+  display: block;
+}
+.launchCountdownCopy small {
+  color: var(--green);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+.launchCountdownCopy strong {
+  margin-top: 7px;
+  font-family: var(--font-orbitron),Arial,sans-serif;
+  font-size: clamp(18px,3vw,30px);
+}
+.launchCountdownCopy span {
+  margin-top: 7px;
+  color: var(--muted);
+}
+.launchTimer {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(70px,1fr));
+  gap: 8px;
+}
+.launchTimer div {
+  padding: 13px;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+.launchTimer strong,
+.launchTimer span {
+  display: block;
+}
+.launchTimer strong {
+  font-family: var(--font-orbitron),Arial,sans-serif;
+  font-size: 25px;
+}
+.launchTimer span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+.launchMetrics {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+.launchMetrics article {
+  min-height: 175px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: rgba(141,255,47,.025);
+}
+.launchMetrics small,
+.launchMetrics strong,
+.launchMetrics span {
+  display: block;
+}
+.launchMetrics small {
+  color: var(--muted);
+  letter-spacing: 1.5px;
+}
+.launchMetrics strong {
+  margin-top: 42px;
+  color: var(--green);
+  font-family: var(--font-orbitron),Arial,sans-serif;
+  font-size: clamp(18px,2.2vw,28px);
+}
+.launchMetrics span {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.launchTransparencyGrid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+.launchTransparencyGrid article {
+  min-height: 330px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg,rgba(141,255,47,.035),rgba(2,4,2,.96));
+}
+.launchCardHeading small {
+  color: var(--green);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+.launchCardHeading h3 {
+  margin: 8px 0 0;
+  font-family: var(--font-orbitron),Arial,sans-serif;
+  font-size: 26px;
+}
+.launchFeeRows {
+  margin-top: 24px;
+}
+.launchFeeRows div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+}
+.launchFeeRows span {
+  color: var(--muted);
+}
+.launchFeeRows strong {
+  color: var(--green);
+}
+.launchTransparencyGrid p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.launchContract code {
+  display: block;
+  margin-top: 38px;
+  padding: 17px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  color: var(--foreground);
+  text-overflow: ellipsis;
+}
+.launchContract button {
+  width: 100%;
+  min-height: 49px;
+  margin-top: 10px;
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #031003;
+  font-weight: 900;
+  cursor: pointer;
+}
+.launchContract button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.launchActions {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.launchActions a,
+.launchDisabledAction {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.launchActions a:first-child {
+  background: var(--green);
+  color: #031003;
+}
+.launchDisabledAction {
+  border-color: var(--line);
+  color: var(--muted);
+  opacity: .65;
+}
+.launchSource {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 10px;
+}
+@media(max-width:1000px){
+  .launchTopline,
+  .launchCountdownPanel,
+  .launchTransparencyGrid {
+    grid-template-columns: 1fr;
+  }
+  .launchMetrics {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media(max-width:650px){
+  .launchSection { padding: 85px 0; }
+  .launchTopline h2 {
+    font-size: 46px;
+    letter-spacing: -3px;
+  }
+  .launchTimer,
+  .launchMetrics,
+  .launchActions {
+    grid-template-columns: 1fr 1fr;
+  }
+  .launchActions > :last-child {
+    grid-column: 1 / -1;
+  }
+  .launchFeeRows div,
+  .launchSource {
+    flex-direction: column;
+  }
+}
+
+
+/* BULLE V12.1 — GIANT LAUNCH COUNTDOWN */
+.launchCountdownMega {
+  position: relative;
+  margin-top: 44px;
+  padding: clamp(24px, 4vw, 48px);
+  overflow: hidden;
+  border: 1px solid var(--green);
+  background:
+    linear-gradient(180deg, rgba(141,255,47,.055), rgba(2,4,2,.96)),
+    radial-gradient(circle at 50% 10%, rgba(141,255,47,.14), transparent 46%);
+  box-shadow:
+    inset 0 0 90px rgba(141,255,47,.045),
+    0 0 70px rgba(141,255,47,.08);
+}
+
+.launchCountdownMega::before,
+.launchCountdownMega::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.launchCountdownMega::before {
+  inset: 0;
+  opacity: .15;
+  background:
+    linear-gradient(rgba(141,255,47,.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(141,255,47,.11) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent);
+}
+
+.launchCountdownMega::after {
+  width: 340px;
+  height: 340px;
+  right: -120px;
+  bottom: -150px;
+  border: 1px solid rgba(141,255,47,.35);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 35px rgba(141,255,47,.025),
+    0 0 0 70px rgba(141,255,47,.018);
+}
+
+.launchCountdownMegaHeader {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: end;
+}
+
+.launchCountdownMegaHeader small,
+.launchCountdownMegaHeader strong,
+.launchCountdownMegaHeader span {
+  display: block;
+}
+
+.launchCountdownMegaHeader small {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+}
+
+.launchCountdownMegaHeader strong {
+  margin-top: 8px;
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: clamp(20px, 3vw, 34px);
+}
+
+.launchCountdownMegaHeader span {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.launchCountdownMegaHeader p {
+  margin: 0;
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: clamp(13px, 2vw, 22px);
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+.launchTimerMega {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns:
+    minmax(130px, 1fr) auto
+    minmax(130px, 1fr) auto
+    minmax(130px, 1fr) auto
+    minmax(130px, 1fr);
+  gap: clamp(8px, 1.5vw, 20px);
+  align-items: center;
+  margin-top: 42px;
+}
+
+.launchTimerMega > div {
+  min-width: 0;
+  padding: clamp(18px, 3vw, 34px) 12px;
+  border: 1px solid rgba(141,255,47,.28);
+  background:
+    linear-gradient(180deg, rgba(141,255,47,.05), rgba(0,0,0,.3));
+  text-align: center;
+}
+
+.launchTimerMega strong {
+  display: block;
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: clamp(58px, 9vw, 132px);
+  line-height: .82;
+  letter-spacing: -5px;
+  text-shadow:
+    0 0 18px rgba(141,255,47,.28),
+    0 0 48px rgba(141,255,47,.14);
+}
+
+.launchTimerMega span {
+  display: block;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.launchTimerMega b {
+  color: rgba(141,255,47,.75);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: clamp(40px, 6vw, 86px);
+  line-height: 1;
+  animation: launchColonBlink 1s steps(1) infinite;
+}
+
+@keyframes launchColonBlink {
+  50% { opacity: .25; }
+}
+
+.launchCountdownMegaFooter {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  align-items: center;
+  margin-top: 26px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-align: center;
+}
+
+.launchCountdownMegaFooter i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 12px var(--green);
+}
+
+@media (max-width: 1000px) {
+  .launchCountdownMegaHeader {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .launchCountdownMegaHeader p {
+    text-align: left;
+  }
+
+  .launchTimerMega {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .launchTimerMega b {
+    display: none;
+  }
+
+  .launchTimerMega strong {
+    font-size: clamp(48px, 11vw, 94px);
+  }
+}
+
+@media (max-width: 650px) {
+  .launchCountdownMega {
+    padding: 22px 14px;
+  }
+
+  .launchTimerMega {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .launchTimerMega strong {
+    font-size: clamp(52px, 20vw, 86px);
+    letter-spacing: -3px;
+  }
+
+  .launchCountdownMegaFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .launchCountdownMegaFooter i {
+    display: none;
+  }
+}
