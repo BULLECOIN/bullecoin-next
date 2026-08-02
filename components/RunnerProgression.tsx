@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Skin = {
   id: string;
@@ -9,6 +9,21 @@ type Skin = {
   className: string;
   unlocked: boolean;
 };
+
+type Achievement = {
+  title: string;
+  description: string;
+  unlocked: boolean;
+};
+
+type Champion = {
+  week: string;
+  nickname: string;
+  wallet: string;
+  score: string;
+};
+
+const SKIN_STORAGE_KEY = "bulle-runner-selected-skin";
 
 const skins: Skin[] = [
   {
@@ -48,16 +63,40 @@ const skins: Skin[] = [
   },
 ];
 
-const achievements = [
-  ["FIRST RUN", "Complete one verified run", true],
-  ["5K CLUB", "Reach a verified score of 5,000", false],
-  ["TOP 100", "Enter the weekly Top 100", false],
-  ["TOP 10", "Enter the weekly Top 10", false],
-  ["WEEKLY CHAMPION", "Finish a week in first place", false],
-  ["HERD BUILDER", "Share a verified score on X", false],
+const achievements: Achievement[] = [
+  {
+    title: "FIRST RUN",
+    description: "Complete one verified run",
+    unlocked: true,
+  },
+  {
+    title: "5K CLUB",
+    description: "Reach a verified score of 5,000",
+    unlocked: false,
+  },
+  {
+    title: "TOP 100",
+    description: "Enter the weekly Top 100",
+    unlocked: false,
+  },
+  {
+    title: "TOP 10",
+    description: "Enter the weekly Top 10",
+    unlocked: false,
+  },
+  {
+    title: "WEEKLY CHAMPION",
+    description: "Finish a week in first place",
+    unlocked: false,
+  },
+  {
+    title: "HERD BUILDER",
+    description: "Share a verified score on X",
+    unlocked: false,
+  },
 ];
 
-const champions = [
+const champions: Champion[] = [
   {
     week: "COMING SOON",
     nickname: "First Champion",
@@ -69,10 +108,29 @@ const champions = [
 export default function RunnerProgression() {
   const [selectedSkin, setSelectedSkin] = useState("steel");
 
-  const active = useMemo(
+  useEffect(() => {
+    const stored = window.localStorage.getItem(SKIN_STORAGE_KEY);
+    if (stored && skins.some((skin) => skin.id === stored && skin.unlocked)) {
+      setSelectedSkin(stored);
+    }
+  }, []);
+
+  const activeSkin = useMemo(
     () => skins.find((skin) => skin.id === selectedSkin) ?? skins[0],
     [selectedSkin],
   );
+
+  function chooseSkin(skin: Skin) {
+    if (!skin.unlocked) return;
+
+    setSelectedSkin(skin.id);
+    window.localStorage.setItem(SKIN_STORAGE_KEY, skin.id);
+    window.dispatchEvent(
+      new CustomEvent("bulle-skin-change", {
+        detail: { skinId: skin.id },
+      }),
+    );
+  }
 
   return (
     <>
@@ -82,6 +140,7 @@ export default function RunnerProgression() {
             <p className="sectionLabel">CYBER BULL GARAGE</p>
             <h2>CHOOSE YOUR ARMOR</h2>
           </div>
+
           <p>
             Skins are visual rewards only and do not change speed, jump height
             or score. Competitive performance stays equal for every player.
@@ -89,12 +148,12 @@ export default function RunnerProgression() {
         </div>
 
         <div className="runnerGarageLayout">
-          <div className={`runnerGaragePreview ${active.className}`}>
+          <div className={`runnerGaragePreview ${activeSkin.className}`}>
             <div className="runnerGarageGlow" />
-            <img src="/bulle-logo.jpg" alt={active.name} />
+            <img src="/bulle-logo.jpg" alt={activeSkin.name} />
             <small>SELECTED SKIN</small>
-            <strong>{active.name}</strong>
-            <span>{active.requirement}</span>
+            <strong>{activeSkin.name}</strong>
+            <span>{activeSkin.requirement}</span>
           </div>
 
           <div className="runnerSkinGrid">
@@ -105,14 +164,16 @@ export default function RunnerProgression() {
                 className={
                   selectedSkin === skin.id ? "runnerSkinActive" : undefined
                 }
-                onClick={() => skin.unlocked && setSelectedSkin(skin.id)}
+                onClick={() => chooseSkin(skin)}
                 disabled={!skin.unlocked}
               >
                 <span className={`runnerSkinSwatch ${skin.className}`} />
+
                 <div>
                   <strong>{skin.name}</strong>
                   <small>{skin.requirement}</small>
                 </div>
+
                 <em>{skin.unlocked ? "UNLOCKED" : "LOCKED"}</em>
               </button>
             ))}
@@ -126,6 +187,7 @@ export default function RunnerProgression() {
             <p className="sectionLabel">PLAYER PROGRESSION</p>
             <h2>ACHIEVEMENTS</h2>
           </div>
+
           <p>
             This first version displays the progression system. Persistent
             achievement tracking can be connected to Supabase next.
@@ -133,15 +195,17 @@ export default function RunnerProgression() {
         </div>
 
         <div className="runnerAchievementGrid">
-          {achievements.map(([title, description, unlocked]) => (
+          {achievements.map((achievement) => (
             <article
-              key={title}
-              className={unlocked ? "achievementUnlocked" : undefined}
+              key={achievement.title}
+              className={
+                achievement.unlocked ? "achievementUnlocked" : undefined
+              }
             >
-              <span>{unlocked ? "✓" : "◈"}</span>
-              <strong>{title}</strong>
-              <p>{description}</p>
-              <small>{unlocked ? "UNLOCKED" : "LOCKED"}</small>
+              <span>{achievement.unlocked ? "✓" : "◈"}</span>
+              <strong>{achievement.title}</strong>
+              <p>{achievement.description}</p>
+              <small>{achievement.unlocked ? "UNLOCKED" : "LOCKED"}</small>
             </article>
           ))}
         </div>
@@ -153,6 +217,7 @@ export default function RunnerProgression() {
             <p className="sectionLabel">LEGACY</p>
             <h2>HALL OF FAME</h2>
           </div>
+
           <p>
             Weekly champions will be archived here after final verification and
             reward approval.
@@ -163,11 +228,13 @@ export default function RunnerProgression() {
           {champions.map((champion) => (
             <article key={champion.week}>
               <div className="runnerChampionBadge">01</div>
+
               <div>
                 <small>{champion.week}</small>
                 <strong>{champion.nickname}</strong>
                 <span>{champion.wallet}</span>
               </div>
+
               <b>{champion.score}</b>
             </article>
           ))}
@@ -180,6 +247,7 @@ export default function RunnerProgression() {
             <p className="sectionLabel">LIVE REWARD DISPLAY</p>
             <h2>PRIZE POOL</h2>
           </div>
+
           <p>
             Keep this display at zero until an independently verified data
             source for creator fees is connected.
