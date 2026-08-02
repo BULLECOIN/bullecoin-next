@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import BullRunner from "@/components/BullRunner";
+import RunnerProgression from "@/components/RunnerProgression";
 
 type LeaderboardEntry = {
   wallet: string;
@@ -94,7 +95,9 @@ export default function RunnerPortal() {
           <a href="#play">Play</a>
           <a href="#leaderboard">Leaderboard</a>
           <a href="#rewards">Rewards</a>
-          <a href="#profile">Profile</a>
+          <a href="#garage">Garage</a>
+          <a href="#achievements">Achievements</a>
+          <a href="#hall-of-fame">Hall of Fame</a>
           <a href="#rules">Rules</a>
         </nav>
 
@@ -225,6 +228,8 @@ export default function RunnerPortal() {
           </p>
         </div>
       </section>
+
+      <RunnerProgression />
 
       <section id="profile" className="runnerPortalSection">
         <div className="runnerPortalSectionHeader">

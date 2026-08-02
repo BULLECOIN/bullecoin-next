@@ -582,3 +582,243 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* BULL RUNNER V10 — GARAGE, ACHIEVEMENTS, HALL OF FAME */
+.runnerGarageLayout {
+  display: grid;
+  grid-template-columns: minmax(310px, .8fr) 1.2fr;
+  gap: 20px;
+}
+.runnerGaragePreview {
+  position: relative;
+  min-height: 480px;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #040704;
+  text-align: center;
+}
+.runnerGaragePreview img {
+  position: relative;
+  z-index: 2;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.runnerGaragePreview small,
+.runnerGaragePreview strong,
+.runnerGaragePreview span {
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+.runnerGaragePreview small {
+  color: var(--green);
+  letter-spacing: 2px;
+}
+.runnerGaragePreview strong {
+  margin-top: 8px;
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: 28px;
+}
+.runnerGaragePreview span {
+  margin-top: 6px;
+  color: var(--muted);
+}
+.runnerGarageGlow {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: .35;
+  background: var(--green);
+}
+.runnerSkinGrid {
+  display: grid;
+  gap: 10px;
+}
+.runnerSkinGrid button {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  min-height: 78px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  background: rgba(141,255,47,.025);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+}
+.runnerSkinGrid button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.runnerSkinGrid button.runnerSkinActive {
+  border-color: var(--green);
+}
+.runnerSkinSwatch {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: block;
+}
+.runnerSkinGrid strong,
+.runnerSkinGrid small {
+  display: block;
+}
+.runnerSkinGrid small {
+  margin-top: 5px;
+  color: var(--muted);
+}
+.runnerSkinGrid em {
+  color: var(--green);
+  font-size: 9px;
+  font-style: normal;
+}
+.skinSteel .runnerGarageGlow,
+.runnerSkinSwatch.skinSteel {
+  background: #647064;
+}
+.skinNeon .runnerGarageGlow,
+.runnerSkinSwatch.skinNeon {
+  background: #8dff2f;
+}
+.skinSolana .runnerGarageGlow,
+.runnerSkinSwatch.skinSolana {
+  background: linear-gradient(135deg,#14f195,#9945ff);
+}
+.skinGold .runnerGarageGlow,
+.runnerSkinSwatch.skinGold {
+  background: #ffd84d;
+}
+.skinGenesis .runnerGarageGlow,
+.runnerSkinSwatch.skinGenesis {
+  background: linear-gradient(135deg,#fff,#8dff2f,#9945ff);
+}
+.runnerAchievementGrid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+.runnerAchievementGrid article {
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  opacity: .55;
+}
+.runnerAchievementGrid article.achievementUnlocked {
+  border-color: var(--green);
+  opacity: 1;
+  background: rgba(141,255,47,.035);
+}
+.runnerAchievementGrid article > span {
+  color: var(--green);
+  font-size: 24px;
+}
+.runnerAchievementGrid strong {
+  display: block;
+  margin-top: 26px;
+  font-family: var(--font-orbitron), Arial, sans-serif;
+}
+.runnerAchievementGrid p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+.runnerAchievementGrid small {
+  color: var(--green);
+  letter-spacing: 1px;
+}
+.runnerHallOfFame article {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  min-height: 110px;
+  padding: 20px;
+  border: 1px solid var(--line);
+}
+.runnerChampionBadge {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+}
+.runnerHallOfFame small,
+.runnerHallOfFame strong,
+.runnerHallOfFame span {
+  display: block;
+}
+.runnerHallOfFame small,
+.runnerHallOfFame span {
+  color: var(--muted);
+}
+.runnerHallOfFame strong {
+  margin: 5px 0;
+  font-family: var(--font-orbitron), Arial, sans-serif;
+}
+.runnerHallOfFame b {
+  color: var(--green);
+  font-size: 24px;
+}
+.runnerPrizePool {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+.runnerPrizePool > div {
+  min-height: 190px;
+  padding: 25px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg,rgba(141,255,47,.04),rgba(2,4,2,.96));
+}
+.runnerPrizePool small,
+.runnerPrizePool strong,
+.runnerPrizePool span {
+  display: block;
+}
+.runnerPrizePool small {
+  color: var(--muted);
+  letter-spacing: 1.5px;
+}
+.runnerPrizePool strong {
+  margin-top: 50px;
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: 24px;
+}
+.runnerPrizePool span {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .runnerGarageLayout {
+    grid-template-columns: 1fr;
+  }
+  .runnerAchievementGrid,
+  .runnerPrizePool {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .runnerAchievementGrid,
+  .runnerPrizePool {
+    grid-template-columns: 1fr;
+  }
+  .runnerGaragePreview {
+    min-height: 390px;
+  }
+  .runnerGaragePreview img {
+    width: 200px;
+    height: 200px;
+  }
+}
