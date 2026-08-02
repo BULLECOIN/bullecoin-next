@@ -1,6 +1,7 @@
 import Image from "next/image";
 import TokenDashboard from "@/components/TokenDashboard";
 import BullHub from "@/components/BullHub";
+import BullRunner from "@/components/BullRunner";
 
 const xUrl = "https://x.com/BulleCoinOF";
 const telegramUrl = "https://t.me/+k7ieRmAdKgpmNjcx";
@@ -21,6 +22,7 @@ export default function Home() {
           <a href="#about">About</a>
           <a href="#tokenomics">Tokenomics</a>
           <a href="#dashboard">Dashboard</a>
+          <a href="#bull-runner">Bull Runner</a>
           <a href="#bull-hub">Bull Hub</a>
           <a href="#roadmap">Roadmap</a>
           <a href="#community">Community</a>
@@ -127,6 +129,8 @@ export default function Home() {
       </section>
 
       <TokenDashboard />
+
+      <BullRunner />
 
       <BullHub />
 
