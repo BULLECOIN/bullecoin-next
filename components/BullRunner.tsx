@@ -103,6 +103,20 @@ export default function BullRunner() {
 
   async function connectWallet(){const provider=window.solana;if(!provider?.isPhantom){setMessage("Phantom was not detected. Install or open Phantom.");return;}try{const result=await provider.connect();setWallet(result.publicKey.toString());setMessage("Wallet connected. No transaction was requested.");}catch{setMessage("Wallet connection was cancelled.");}}
 
+  function shareScoreOnX(){
+    const text=[
+      "🐂 I just ran with the Cyber Bull!",
+      "",
+      `Score: ${score.toLocaleString("en-US")}`,
+      "Can you beat me?",
+      "",
+      "https://bullecoin.io/#bull-runner",
+      "",
+      "#BULLE #Solana #BullRunner"
+    ].join("\n");
+    window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`,"_blank","noopener,noreferrer");
+  }
+
   return <section className="runnerSection" id="bull-runner"><div className="contentWidth">
     <p className="sectionLabel">04 / BULL RUNNER BETA</p>
     <div className="runnerHeader"><div><h2>RUN.<span>SURVIVE. RANK.</span></h2><p>Jump over bears and red candles, build your score and climb the weekly ranking. The beta is free and no token purchase is required.</p></div>
@@ -110,8 +124,10 @@ export default function BullRunner() {
     </div>
     <div className="runnerLayout"><div className="runnerGamePanel">
       <div className="runnerControls"><input value={nickname} onChange={e=>setNickname(e.target.value)} maxLength={18} placeholder="Nickname"/><button onClick={connectWallet}>{wallet?shortWallet(wallet):"CONNECT PHANTOM"}</button><button onClick={startGame}>{status==="running"?"RESTART":"PLAY NOW"}</button></div>
-      <div className="runnerCanvasWrap" onClick={jump} onTouchStart={e=>{e.preventDefault();jump();}}><canvas ref={canvasRef} width={960} height={420}/>{status!=="running"&&<div className="runnerOverlay"><strong>{status==="over"?"RUN COMPLETE":"BULL RUNNER"}</strong><span>{status==="over"?`Score: ${score}`:"Press Play, then tap or press Space to jump"}</span><button onClick={startGame}>{status==="over"?"RUN AGAIN":"START RUN"}</button></div>}</div>
-      <div className="runnerGameFooter"><span>Current score: {score}</span><span>{wallet?`Wallet: ${shortWallet(wallet)}`:"Guest mode active"}</span></div>{message&&<p className="runnerWalletMessage">{message}</p>}
+      <div className="runnerCanvasWrap" onClick={jump} onTouchStart={e=>{e.preventDefault();jump();}}><canvas ref={canvasRef} width={960} height={420}/>{status!=="running"&&<div className="runnerOverlay"><strong>{status==="over"?"RUN COMPLETE":"BULL RUNNER"}</strong><span>{status==="over"?`Score: ${score}`:"Press Play, then tap or press Space to jump"}</span><button onClick={startGame}>{status==="over"?"RUN AGAIN":"START RUN"}</button>{status==="over"&&<button className="runnerShareButton" onClick={shareScoreOnX}>SHARE SCORE ON X</button>}</div>}</div>
+      <div className="runnerGameFooter"><span>Current score: {score}</span><span>{wallet?`Wallet: ${shortWallet(wallet)}`:"Guest mode active"}</span></div>
+      <div className="runnerEnergyPreview"><div><small>FREE BETA</small><strong>UNLIMITED RUNS FOR 15 DAYS</strong></div><div>⚡ ⚡ ⚡ ⚡ ⚡</div><p>Future seasons may use free daily Energy Cells. Premium energy details will be announced before activation.</p></div>
+      {message&&<p className="runnerWalletMessage">{message}</p>}
     </div><aside className="runnerSidebar"><div className="runnerPrizeCard"><small>WEEKLY CREATOR FEES CHAMPIONSHIP</small><h3>TOP 5 SHARE 30%</h3><ol>{[["1ST","10%"],["2ND","7%"],["3RD","5.5%"],["4TH","4%"],["5TH","3.5%"]].map(([a,b])=><li key={a}><span>{a}</span><strong>{b}</strong></li>)}</ol><p>Rewards are calculated from creator fees actually received during the published weekly competition period.</p></div>
       <div className="runnerLeaderboard"><div className="runnerLeaderboardTitle"><strong>LOCAL TOP 5</strong><small>Official online ranking coming next</small></div>{topFive.length?<ol>{topFive.map((s,i)=><li key={s.createdAt+i}><span>#{i+1}</span><div><strong>{s.nickname}</strong><small>{s.wallet==="guest"?"Guest":shortWallet(s.wallet)}</small></div><b>{s.score}</b></li>)}</ol>:<p>No local scores yet. Start the first run.</p>}</div></aside></div>
     <div className="runnerRules"><strong>BETA RULES</strong><p>Free entry. No purchase is required. Connecting a wallet only identifies the player and future payout address; the beta never asks the player to sign a transaction. Official weekly prizes require a persistent online leaderboard, anti-cheat review, published eligibility rules and verified scores before payouts.</p></div>

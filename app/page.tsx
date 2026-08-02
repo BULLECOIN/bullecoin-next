@@ -2,6 +2,7 @@ import Image from "next/image";
 import TokenDashboard from "@/components/TokenDashboard";
 import BullHub from "@/components/BullHub";
 import BullRunner from "@/components/BullRunner";
+import CommunitySpotlight from "@/components/CommunitySpotlight";
 
 const xUrl = "https://x.com/BulleCoinOF";
 const telegramUrl = "https://t.me/+k7ieRmAdKgpmNjcx";
@@ -23,6 +24,7 @@ export default function Home() {
           <a href="#tokenomics">Tokenomics</a>
           <a href="#dashboard">Dashboard</a>
           <a href="#bull-runner">Bull Runner</a>
+          <a href="#community-video">Community</a>
           <a href="#bull-hub">Bull Hub</a>
           <a href="#roadmap">Roadmap</a>
           <a href="#community">Community</a>
@@ -131,6 +133,8 @@ export default function Home() {
       <TokenDashboard />
 
       <BullRunner />
+
+      <CommunitySpotlight />
 
       <BullHub />
 
