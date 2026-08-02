@@ -1,135 +1,20 @@
 "use client";
-
-import { useEffect, useMemo, useRef, useState } from "react";
-
-type PhantomProvider = {
-  isPhantom?: boolean;
-  publicKey?: { toString(): string };
-  connect(): Promise<{ publicKey: { toString(): string } }>;
-};
-
-declare global {
-  interface Window { solana?: PhantomProvider; }
-}
-
-type Score = { nickname: string; score: number; wallet: string; createdAt: string };
-const SCORE_KEY = "bulle-runner-scores-v1";
-const START_KEY = "bulle-runner-beta-start-v1";
-const BETA_MS = 15 * 24 * 60 * 60 * 1000;
-
-function shortWallet(value: string) { return `${value.slice(0,4)}...${value.slice(-4)}`; }
-function remainingParts(ms: number) {
-  const seconds = Math.max(0, Math.floor(ms / 1000));
-  return {
-    days: Math.floor(seconds / 86400),
-    hours: Math.floor((seconds % 86400) / 3600),
-    minutes: Math.floor((seconds % 3600) / 60),
-    seconds: seconds % 60,
-  };
-}
-
-export default function BullRunner() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const animationRef = useRef<number | null>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const gameRef = useRef({ running:false, score:0, y:240, vy:0, speed:6, last:0, lastObstacle:0, obstacles:[] as {x:number;w:number;h:number;type:"bear"|"candle"}[] });
-  const [status,setStatus] = useState<"ready"|"running"|"over">("ready");
-  const [score,setScore] = useState(0);
-  const [nickname,setNickname] = useState("CyberBull");
-  const [wallet,setWallet] = useState("");
-  const [message,setMessage] = useState("");
-  const [scores,setScores] = useState<Score[]>([]);
-  const [remaining,setRemaining] = useState(BETA_MS);
-
-  useEffect(() => {
-    const img = new Image(); img.src = "/bulle-logo.jpg"; imageRef.current = img;
-    const saved = localStorage.getItem(SCORE_KEY);
-    if (saved) { try { setScores(JSON.parse(saved) as Score[]); } catch {} }
-    let start = Number(localStorage.getItem(START_KEY));
-    if (!start) { start = Date.now(); localStorage.setItem(START_KEY,String(start)); }
-    const end = start + BETA_MS;
-    const tick = () => setRemaining(Math.max(0,end-Date.now()));
-    tick(); const timer = window.setInterval(tick,1000);
-    return () => window.clearInterval(timer);
-  },[]);
-
-  const topFive = useMemo(() => [...scores].sort((a,b)=>b.score-a.score).slice(0,5),[scores]);
-  const countdown = remainingParts(remaining);
-
-  function draw() {
-    const canvas = canvasRef.current; if (!canvas) return;
-    const ctx = canvas.getContext("2d"); if (!ctx) return;
-    const g = gameRef.current;
-    const W=960,H=420,ground=330,bullX=110,bullSize=70;
-    const bg=ctx.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#020402"); bg.addColorStop(1,"#071407");
-    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle="rgba(141,255,47,.08)"; ctx.lineWidth=1;
-    for(let x=0;x<W;x+=48){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
-    for(let y=0;y<H;y+=48){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
-    ctx.fillStyle="rgba(141,255,47,.12)";ctx.fillRect(0,ground,W,H-ground);
-    ctx.strokeStyle="#8dff2f";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,ground);ctx.lineTo(W,ground);ctx.stroke();
-    g.obstacles.forEach(o=>{
-      const y=ground-o.h;
-      if(o.type==="bear") { ctx.fillStyle="#ff5656"; ctx.font="38px Arial"; ctx.fillText("🐻",o.x,y+38); }
-      else { ctx.fillStyle="#ff5656"; ctx.fillRect(o.x+10,y,o.w-20,o.h); ctx.strokeStyle="#ff5656";ctx.beginPath();ctx.moveTo(o.x+o.w/2,y-10);ctx.lineTo(o.x+o.w/2,y+o.h+10);ctx.stroke(); }
-    });
-    ctx.shadowColor="#8dff2f";ctx.shadowBlur=26;
-    const img=imageRef.current;
-    if(img?.complete){ctx.save();ctx.beginPath();ctx.arc(bullX+bullSize/2,g.y+bullSize/2,bullSize/2,0,Math.PI*2);ctx.clip();ctx.drawImage(img,bullX,g.y,bullSize,bullSize);ctx.restore();}
-    ctx.shadowBlur=0;ctx.fillStyle="#8dff2f";ctx.font="700 20px Arial";ctx.fillText(`SCORE ${Math.floor(g.score)}`,24,36);
-    ctx.fillStyle="#9ba799";ctx.font="14px Arial";ctx.fillText("SPACE / CLICK / TAP TO JUMP",24,62);
-  }
-
-  function finish() {
-    const finalScore=Math.floor(gameRef.current.score); gameRef.current.running=false; setScore(finalScore); setStatus("over");
-    const entry:Score={nickname:nickname.trim()||"CyberBull",score:finalScore,wallet:wallet||"guest",createdAt:new Date().toISOString()};
-    setScores(current=>{const next=[...current,entry].sort((a,b)=>b.score-a.score).slice(0,20);localStorage.setItem(SCORE_KEY,JSON.stringify(next));return next;});
-  }
-
-  function loop(time:number){
-    const g=gameRef.current; if(!g.running){draw();return;}
-    const dt=Math.min(32,time-(g.last||time));g.last=time;g.score+=dt*.018;g.speed=Math.min(15,6+g.score/450);
-    g.vy+=.0024*dt;g.y+=g.vy*dt;if(g.y>=260){g.y=260;g.vy=0;}
-    if(time-g.lastObstacle>Math.max(650,1450-g.speed*45)){const type=Math.random()>.5?"bear":"candle";g.obstacles.push({x:1000,w:type==="bear"?58:44,h:type==="bear"?58:80,type});g.lastObstacle=time;}
-    g.obstacles.forEach(o=>o.x-=g.speed*(dt/16));g.obstacles=g.obstacles.filter(o=>o.x+o.w>-10);
-    const hit=g.obstacles.some(o=>110<o.x+o.w&&165>o.x&&g.y+8<330&&g.y+62>330-o.h);
-    setScore(Math.floor(g.score));draw();if(hit){finish();return;}animationRef.current=requestAnimationFrame(loop);
-  }
-
-  function startGame(){if(animationRef.current) cancelAnimationFrame(animationRef.current);gameRef.current={running:true,score:0,y:260,vy:0,speed:6,last:performance.now(),lastObstacle:performance.now(),obstacles:[]};setScore(0);setStatus("running");animationRef.current=requestAnimationFrame(loop);}
-  function jump(){const g=gameRef.current;if(status==="running"&&g.y>=258)g.vy=-.82;}
-
-  useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.code==="Space"||e.code==="ArrowUp"){e.preventDefault();jump();}};window.addEventListener("keydown",key);draw();return()=>window.removeEventListener("keydown",key);});
-
-  async function connectWallet(){const provider=window.solana;if(!provider?.isPhantom){setMessage("Phantom was not detected. Install or open Phantom.");return;}try{const result=await provider.connect();setWallet(result.publicKey.toString());setMessage("Wallet connected. No transaction was requested.");}catch{setMessage("Wallet connection was cancelled.");}}
-
-  function shareScoreOnX(){
-    const text=[
-      "🐂 I just ran with the Cyber Bull!",
-      "",
-      `Score: ${score.toLocaleString("en-US")}`,
-      "Can you beat me?",
-      "",
-      "https://bullecoin.io/#bull-runner",
-      "",
-      "#BULLE #Solana #BullRunner"
-    ].join("\n");
-    window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`,"_blank","noopener,noreferrer");
-  }
-
-  return <section className="runnerSection" id="bull-runner"><div className="contentWidth">
-    <p className="sectionLabel">04 / BULL RUNNER BETA</p>
-    <div className="runnerHeader"><div><h2>RUN.<span>SURVIVE. RANK.</span></h2><p>Jump over bears and red candles, build your score and climb the weekly ranking. The beta is free and no token purchase is required.</p></div>
-      <div className="runnerCountdown"><small>FREE BETA ENDS IN</small>{[[countdown.days,"DAYS"],[countdown.hours,"HRS"],[countdown.minutes,"MIN"],[countdown.seconds,"SEC"]].map(([v,l])=><div key={String(l)}><strong>{v}</strong><span>{l}</span></div>)}</div>
-    </div>
-    <div className="runnerLayout"><div className="runnerGamePanel">
-      <div className="runnerControls"><input value={nickname} onChange={e=>setNickname(e.target.value)} maxLength={18} placeholder="Nickname"/><button onClick={connectWallet}>{wallet?shortWallet(wallet):"CONNECT PHANTOM"}</button><button onClick={startGame}>{status==="running"?"RESTART":"PLAY NOW"}</button></div>
-      <div className="runnerCanvasWrap" onClick={jump} onTouchStart={e=>{e.preventDefault();jump();}}><canvas ref={canvasRef} width={960} height={420}/>{status!=="running"&&<div className="runnerOverlay"><strong>{status==="over"?"RUN COMPLETE":"BULL RUNNER"}</strong><span>{status==="over"?`Score: ${score}`:"Press Play, then tap or press Space to jump"}</span><button onClick={startGame}>{status==="over"?"RUN AGAIN":"START RUN"}</button>{status==="over"&&<button className="runnerShareButton" onClick={shareScoreOnX}>SHARE SCORE ON X</button>}</div>}</div>
-      <div className="runnerGameFooter"><span>Current score: {score}</span><span>{wallet?`Wallet: ${shortWallet(wallet)}`:"Guest mode active"}</span></div>
-      <div className="runnerEnergyPreview"><div><small>FREE BETA</small><strong>UNLIMITED RUNS FOR 15 DAYS</strong></div><div>⚡ ⚡ ⚡ ⚡ ⚡</div><p>Future seasons may use free daily Energy Cells. Premium energy details will be announced before activation.</p></div>
-      {message&&<p className="runnerWalletMessage">{message}</p>}
-    </div><aside className="runnerSidebar"><div className="runnerPrizeCard"><small>WEEKLY CREATOR FEES CHAMPIONSHIP</small><h3>TOP 5 SHARE 30%</h3><ol>{[["1ST","10%"],["2ND","7%"],["3RD","5.5%"],["4TH","4%"],["5TH","3.5%"]].map(([a,b])=><li key={a}><span>{a}</span><strong>{b}</strong></li>)}</ol><p>Rewards are calculated from creator fees actually received during the published weekly competition period.</p></div>
-      <div className="runnerLeaderboard"><div className="runnerLeaderboardTitle"><strong>LOCAL TOP 5</strong><small>Official online ranking coming next</small></div>{topFive.length?<ol>{topFive.map((s,i)=><li key={s.createdAt+i}><span>#{i+1}</span><div><strong>{s.nickname}</strong><small>{s.wallet==="guest"?"Guest":shortWallet(s.wallet)}</small></div><b>{s.score}</b></li>)}</ol>:<p>No local scores yet. Start the first run.</p>}</div></aside></div>
-    <div className="runnerRules"><strong>BETA RULES</strong><p>Free entry. No purchase is required. Connecting a wallet only identifies the player and future payout address; the beta never asks the player to sign a transaction. Official weekly prizes require a persistent online leaderboard, anti-cheat review, published eligibility rules and verified scores before payouts.</p></div>
-  </div></section>;
-}
+import bs58 from "bs58";
+import { useCallback,useEffect,useMemo,useRef,useState } from "react";
+import { createRunnerState,isGrounded,RUNNER,RunnerState,stepRunner } from "@/lib/runnerEngine";
+type Phantom={isPhantom?:boolean;connect():Promise<{publicKey:{toString():string}}>;signMessage(m:Uint8Array,d?:"utf8"|"hex"):Promise<{signature:Uint8Array}>};
+declare global{interface Window{solana?:Phantom}}
+type Entry={wallet:string;nickname:string;best_score:number};type Active={runId:string;runToken:string;seed:number;startedAt:string};
+const short=(v:string)=>`${v.slice(0,4)}...${v.slice(-4)}`;
+export default function BullRunner(){const canvas=useRef<HTMLCanvasElement|null>(null),img=useRef<HTMLImageElement|null>(null),frame=useRef<number|null>(null),state=useRef<RunnerState>(createRunnerState(1)),acc=useRef(0),prev=useRef(0),pending=useRef(false),jumps=useRef<number[]>([]),active=useRef<Active|null>(null);const [wallet,setWallet]=useState(""),[nickname,setNickname]=useState("CyberBull"),[score,setScore]=useState(0),[status,setStatus]=useState<"ready"|"authorizing"|"running"|"validating"|"over">("ready"),[message,setMessage]=useState(""),[accepted,setAccepted]=useState<boolean|null>(null),[board,setBoard]=useState<Entry[]>([]);const top=useMemo(()=>board.slice(0,5),[board]);
+const load=useCallback(async()=>{try{const r=await fetch("/api/runner/leaderboard",{cache:"no-store"});if(r.ok){const j=await r.json();setBoard(j.leaderboard||[]);}}catch{}},[]);
+useEffect(()=>{const i=new Image();i.src="/bulle-logo.jpg";img.current=i;load();const t=setInterval(load,60000);return()=>clearInterval(t);},[load]);
+const draw=useCallback(()=>{const c=canvas.current,x=c?.getContext("2d");if(!c||!x)return;const s=state.current,g=x.createLinearGradient(0,0,0,RUNNER.height);g.addColorStop(0,"#020402");g.addColorStop(1,"#071407");x.fillStyle=g;x.fillRect(0,0,RUNNER.width,RUNNER.height);x.strokeStyle="rgba(141,255,47,.08)";for(let q=0;q<RUNNER.width;q+=48){x.beginPath();x.moveTo(q,0);x.lineTo(q,RUNNER.height);x.stroke();}for(let q=0;q<RUNNER.height;q+=48){x.beginPath();x.moveTo(0,q);x.lineTo(RUNNER.width,q);x.stroke();}x.fillStyle="rgba(141,255,47,.12)";x.fillRect(0,RUNNER.groundY,RUNNER.width,RUNNER.height-RUNNER.groundY);x.strokeStyle="#8dff2f";x.lineWidth=3;x.beginPath();x.moveTo(0,RUNNER.groundY);x.lineTo(RUNNER.width,RUNNER.groundY);x.stroke();for(const o of s.obstacles){const y=RUNNER.groundY-o.height;if(o.type==="bear"){x.font="38px Arial";x.fillText("🐻",o.x,y+38);}else{x.fillStyle="#ff5656";x.fillRect(o.x+9,y,o.width-18,o.height);}}if(img.current?.complete){x.save();x.beginPath();x.arc(RUNNER.bullX+35,s.bullY+35,35,0,Math.PI*2);x.clip();x.drawImage(img.current,RUNNER.bullX,s.bullY,70,70);x.restore();}x.fillStyle="#8dff2f";x.font="700 20px Arial";x.fillText(`SCORE ${s.score}`,24,36);},[]);
+const submit=useCallback(async()=>{if(!active.current)return;setStatus("validating");setMessage("Server is replaying your run...");try{const r=await fetch("/api/runner/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({runId:active.current.runId,runToken:active.current.runToken,jumpTicks:jumps.current,claimedScore:state.current.score})});const j=await r.json();if(!r.ok||!j.accepted){setAccepted(false);setMessage(j.error||"Score rejected");}else{setAccepted(true);setScore(j.score);setMessage("Verified score accepted globally.");await load();}}catch{setAccepted(false);setMessage("Validation unavailable");}finally{setStatus("over");active.current=null;}},[load]);
+const loop=useCallback((time:number)=>{if(status!=="running"){draw();return;}if(!prev.current)prev.current=time;acc.current+=Math.min(100,time-prev.current);prev.current=time;while(acc.current>=RUNNER.fixedStepMs){const s=state.current,want=pending.current;if(want&&isGrounded(s))jumps.current.push(s.tick);stepRunner(s,want);pending.current=false;acc.current-=RUNNER.fixedStepMs;if(s.collided){setScore(s.score);draw();submit();return;}}setScore(state.current.score);draw();frame.current=requestAnimationFrame(loop);},[draw,status,submit]);
+useEffect(()=>{if(status==="running")frame.current=requestAnimationFrame(loop);return()=>{if(frame.current)cancelAnimationFrame(frame.current);};},[loop,status]);
+const jump=useCallback(()=>{if(status==="running")pending.current=true;},[status]);useEffect(()=>{const k=(e:KeyboardEvent)=>{if(e.code==="Space"||e.code==="ArrowUp"){e.preventDefault();jump();}};addEventListener("keydown",k);return()=>removeEventListener("keydown",k);},[jump]);useEffect(()=>draw(),[draw]);
+async function connect(){const p=window.solana;if(!p?.isPhantom){setMessage("Phantom not detected");return;}try{const r=await p.connect();setWallet(r.publicKey.toString());setMessage("Wallet connected. No transaction requested.");}catch{setMessage("Connection cancelled");}}
+async function start(){const p=window.solana;if(!wallet||!p?.isPhantom){setMessage("Connect Phantom first");return;}setStatus("authorizing");setAccepted(null);setMessage("Sign the free verification message");try{const cr=await fetch("/api/runner/challenge",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({wallet})}),c=await cr.json();if(!cr.ok)throw new Error(c.error);const signed=await p.signMessage(new TextEncoder().encode(c.message),"utf8");const sr=await fetch("/api/runner/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({wallet,nickname,nonce:c.nonce,message:c.message,signature:bs58.encode(signed.signature)})}),r=await sr.json();if(!sr.ok)throw new Error(r.error);active.current=r;state.current=createRunnerState(r.seed);jumps.current=[];acc.current=0;prev.current=0;pending.current=false;setScore(0);setMessage("Verified run started");setStatus("running");}catch(e){setStatus("ready");setMessage(e instanceof Error?e.message:"Authorization cancelled");}}
+function share(){const t=["🐂 I completed a verified Bull Runner run!","",`Score: ${score}`,"Can you beat me?","","https://bullecoin.io/#bull-runner","","#BULLE #Solana #BullRunner"].join("\n");open(`https://x.com/intent/post?text=${encodeURIComponent(t)}`,"_blank");}
+return <section className="runnerSection" id="bull-runner"><div className="contentWidth"><p className="sectionLabel">04 / BULL RUNNER VERIFIED BETA</p><div className="runnerHeader"><div><h2>RUN.<span>VERIFY. RANK.</span></h2><p>Official runs use a free wallet signature and deterministic server replay.</p></div><div className="runnerSecurityBadge"><small>SERVER CONTROLS</small><strong>DETERMINISTIC REPLAY</strong><span>Wallet signature · rate limit · one-time run token</span></div></div><div className="runnerLayout"><div className="runnerGamePanel"><div className="runnerControls"><input value={nickname} onChange={e=>setNickname(e.target.value)} maxLength={18}/><button onClick={connect}>{wallet?short(wallet):"CONNECT PHANTOM"}</button><button onClick={start} disabled={["authorizing","running","validating"].includes(status)}>{status==="authorizing"?"SIGN MESSAGE":status==="validating"?"VALIDATING":status==="running"?"RUNNING":"START VERIFIED RUN"}</button></div><div className="runnerCanvasWrap" onClick={jump} onTouchStart={e=>{e.preventDefault();jump();}}><canvas ref={canvas} width={RUNNER.width} height={RUNNER.height}/>{status!=="running"&&<div className="runnerOverlay"><strong>{status==="validating"?"VALIDATING RUN":status==="over"?(accepted?"SCORE ACCEPTED":"RUN COMPLETE"):"BULL RUNNER"}</strong><span>{status==="over"?`Score: ${score}`:"Connect Phantom and start a verified run"}</span>{status==="over"&&<><button onClick={start}>RUN AGAIN</button><button className="runnerShareButton" onClick={share}>SHARE SCORE ON X</button></>}</div>}</div><div className="runnerGameFooter"><span>Score: {score}</span><span>{wallet?`Wallet: ${short(wallet)}`:"Wallet required"}</span><span>{accepted===true?"Verified":accepted===false?"Rejected / not ranked":"Awaiting run"}</span></div>{message&&<p className="runnerWalletMessage">{message}</p>}</div><aside className="runnerSidebar"><div className="runnerPrizeCard"><small>WEEKLY CREATOR FEES CHAMPIONSHIP</small><h3>TOP 5 SHARE 30%</h3><ol><li><span>1ST</span><strong>10%</strong></li><li><span>2ND</span><strong>7%</strong></li><li><span>3RD</span><strong>5.5%</strong></li><li><span>4TH</span><strong>4%</strong></li><li><span>5TH</span><strong>3.5%</strong></li></ol><p>Keep real payouts disabled until official rules and finalist review are published.</p></div><div className="runnerLeaderboard"><div className="runnerLeaderboardTitle"><strong>GLOBAL TOP 5</strong><small>Current UTC week</small></div>{top.length?<ol>{top.map((e,i)=><li key={e.wallet}><span>#{i+1}</span><div><strong>{e.nickname}</strong><small>{short(e.wallet)}</small></div><b>{e.best_score}</b></li>)}</ol>:<p>No verified scores yet.</p>}</div></aside></div><div className="runnerRules"><strong>VALIDATION CONTROLS</strong><p>The server recreates every obstacle and jump, validates score, collision and duration, and rate-limits official runs. Finalists still require manual review before prizes.</p></div></div></section>}

@@ -1,0 +1,10 @@
+create extension if not exists pgcrypto;
+create table if not exists public.runner_nonces(id uuid primary key default gen_random_uuid(),wallet text not null,nonce text not null unique,message text not null,expires_at timestamptz not null,used_at timestamptz,created_at timestamptz not null default now());
+create table if not exists public.runner_runs(id uuid primary key default gen_random_uuid(),wallet text not null,nickname text not null check(char_length(nickname) between 1 and 18),seed bigint not null,started_at timestamptz not null,submitted_at timestamptz,week_start timestamptz not null,run_token_hash text not null,status text not null default 'active' check(status in('active','accepted','rejected')),validated_score integer,jump_count integer,rejection_reason text,created_at timestamptz not null default now());
+create table if not exists public.runner_scores(id uuid primary key default gen_random_uuid(),wallet text not null,nickname text not null,week_start timestamptz not null,best_score integer not null default 0,best_run_id uuid references public.runner_runs(id) on delete set null,updated_at timestamptz not null default now(),unique(wallet,week_start));
+create index if not exists runner_nonce_wallet_idx on public.runner_nonces(wallet,created_at desc);
+create index if not exists runner_runs_wallet_idx on public.runner_runs(wallet,created_at desc);
+create index if not exists runner_scores_week_idx on public.runner_scores(week_start,best_score desc);
+alter table public.runner_nonces enable row level security;
+alter table public.runner_runs enable row level security;
+alter table public.runner_scores enable row level security;

@@ -206,3 +206,379 @@
 .spotlightGrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center;margin-top:30px}.spotlightCopy h2{margin:0;font-family:var(--font-orbitron),Arial,sans-serif;font-size:clamp(52px,6vw,92px);line-height:.94;letter-spacing:-5px}.spotlightCopy h2 span{display:block;color:var(--green)}.spotlightCopy>p{max-width:620px;margin-top:24px;color:var(--muted);font-size:17px;line-height:1.8}.spotlightActions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.spotlightActions a{padding:15px 18px;border:1px solid var(--green);color:var(--green);font-size:11px;font-weight:800;letter-spacing:1px}.spotlightActions a:first-child{background:var(--green);color:#041004}.spotlightTags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.spotlightTags span{padding:7px 9px;border:1px solid var(--line);color:var(--muted);font-size:9px;letter-spacing:1px}.spotlightMedia{position:relative;min-height:520px;overflow:hidden;border:1px solid rgba(165,255,63,.45);box-shadow:0 0 55px rgba(84,255,24,.08)}.spotlightMedia img{width:100%;height:100%;min-height:520px;display:block;object-fit:cover}.spotlightMedia:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(2,4,2,.95))}.spotlightMediaOverlay{position:absolute;z-index:2;right:26px;bottom:24px;left:26px}.spotlightMediaOverlay span{display:block;color:var(--green);font-size:9px;font-weight:800;letter-spacing:2px}.spotlightMediaOverlay strong{display:block;margin-top:7px;font-family:var(--font-orbitron),Arial,sans-serif;font-size:clamp(20px,3vw,35px)}.spotlightMediaOverlay small{display:block;margin-top:8px;color:var(--muted)}
 @media(max-width:900px){.spotlightGrid{grid-template-columns:1fr}.runnerEnergyPreview{grid-template-columns:1fr}.spotlightMedia,.spotlightMedia img{min-height:430px}}
 @media(max-width:600px){.spotlightSection{padding:85px 0}.spotlightCopy h2{font-size:44px;letter-spacing:-3px}.spotlightActions{flex-direction:column}.spotlightMedia,.spotlightMedia img{min-height:360px}}
+
+.runnerSecurityBadge{max-width:390px;padding:18px;border:1px solid var(--green);background:rgba(165,255,63,.035)}.runnerSecurityBadge small,.runnerSecurityBadge strong,.runnerSecurityBadge span{display:block}.runnerSecurityBadge small{color:var(--green);font-size:9px;letter-spacing:2px}.runnerSecurityBadge strong{margin-top:7px;font-family:var(--font-orbitron),Arial,sans-serif;font-size:15px}.runnerSecurityBadge span{margin-top:7px;color:var(--muted);font-size:11px;line-height:1.5}.runnerControls button:disabled{cursor:wait;opacity:.55}
+
+
+/* BULL RUNNER DEDICATED PORTAL */
+.runnerPortal {
+  min-height: 100vh;
+  color: var(--foreground);
+  background:
+    radial-gradient(circle at 80% 12%, rgba(141,255,47,.16), transparent 30%),
+    #020402;
+}
+.runnerPortalNav {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 32px;
+  align-items: center;
+  width: min(1500px, calc(100% - 40px));
+  min-height: 84px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--line);
+  background: rgba(2,4,2,.88);
+  backdrop-filter: blur(18px);
+}
+.runnerPortalBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.runnerPortalBrand img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.runnerPortalBrand strong,
+.runnerPortalBrand span {
+  display: block;
+}
+.runnerPortalBrand strong {
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  letter-spacing: 2px;
+}
+.runnerPortalBrand span {
+  margin-top: 4px;
+  color: var(--green);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+.runnerPortalNav nav {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+.runnerPortalNav nav a,
+.runnerPortalBack {
+  color: var(--foreground);
+  font-size: 11px;
+  font-weight: 700;
+}
+.runnerPortalBack {
+  padding: 13px 15px;
+  border: 1px solid var(--green);
+  color: var(--green);
+}
+.runnerPortalHero {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 75px;
+  align-items: center;
+  width: min(1400px, calc(100% - 72px));
+  min-height: 760px;
+  margin: 0 auto;
+  padding: 100px 0;
+}
+.runnerPortalHero h1 {
+  margin: 22px 0;
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: clamp(72px, 10vw, 150px);
+  line-height: .82;
+  letter-spacing: -8px;
+}
+.runnerPortalHero h1 span {
+  display: block;
+  color: var(--green);
+}
+.runnerPortalHeroCopy > p:not(.sectionLabel) {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.8;
+}
+.runnerPortalActions,
+.runnerPortalSecurity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.runnerPortalActions a {
+  padding: 16px 20px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.runnerPortalActions a:first-child {
+  background: var(--green);
+  color: #031003;
+}
+.runnerPortalSecurity span {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.runnerPortalSeason {
+  padding: 30px;
+  border: 1px solid var(--green);
+  background: rgba(141,255,47,.035);
+}
+.runnerPortalSeason > small {
+  color: var(--green);
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.runnerPortalTimer {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+.runnerPortalTimer div {
+  padding: 15px 8px;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+.runnerPortalTimer strong,
+.runnerPortalTimer span {
+  display: block;
+}
+.runnerPortalTimer strong {
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: 28px;
+}
+.runnerPortalTimer span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 8px;
+}
+.runnerPortalSeason p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.runnerPortalGame .runnerSection {
+  padding-top: 100px;
+}
+.runnerPortalSection {
+  width: min(1400px, calc(100% - 72px));
+  margin: 0 auto;
+  padding: 120px 0;
+  border-top: 1px solid var(--line);
+}
+.runnerPortalSectionHeader {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px,520px);
+  gap: 50px;
+  align-items: end;
+  margin-bottom: 42px;
+}
+.runnerPortalSectionHeader h2 {
+  margin: 12px 0 0;
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: clamp(40px,6vw,78px);
+  line-height: .95;
+}
+.runnerPortalSectionHeader > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.runnerPortalLeaderboard {
+  border: 1px solid var(--line);
+}
+.runnerPortalTableHead,
+.runnerPortalLeaderboard article {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr 160px;
+  gap: 20px;
+  align-items: center;
+  min-height: 65px;
+  padding: 0 22px;
+}
+.runnerPortalTableHead {
+  color: var(--green);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  background: rgba(141,255,47,.035);
+}
+.runnerPortalLeaderboard article {
+  border-top: 1px solid var(--line);
+}
+.runnerPortalLeaderboard article > span,
+.runnerPortalLeaderboard article > b {
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+}
+.runnerPortalLeaderboard code {
+  color: var(--muted);
+}
+.runnerPortalEmpty {
+  padding: 45px 22px;
+  color: var(--muted);
+  text-align: center;
+}
+.runnerPortalUpdated {
+  color: var(--muted);
+  font-size: 11px;
+}
+.runnerPortalRewards {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 12px;
+}
+.runnerPortalRewards article {
+  min-height: 180px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg,rgba(141,255,47,.05),rgba(2,4,2,.95));
+}
+.runnerPortalRewards small,
+.runnerPortalRewards strong {
+  display: block;
+}
+.runnerPortalRewards small {
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.runnerPortalRewards strong {
+  margin-top: 55px;
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+  font-size: 34px;
+}
+.runnerPortalNotice {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+}
+.runnerPortalNotice strong {
+  color: var(--green);
+}
+.runnerPortalNotice p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.runnerPortalProfileGrid,
+.runnerPortalRules {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+.runnerPortalProfileGrid article,
+.runnerPortalRules article {
+  padding: 26px;
+  border: 1px solid var(--line);
+}
+.runnerPortalProfileGrid span {
+  color: var(--green);
+  font-family: var(--font-orbitron), Arial, sans-serif;
+}
+.runnerPortalProfileGrid h3 {
+  font-family: var(--font-orbitron), Arial, sans-serif;
+}
+.runnerPortalProfileGrid p,
+.runnerPortalRules p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.runnerPortalRules strong {
+  color: var(--green);
+}
+.runnerPortalFooter {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 50px;
+  align-items: center;
+  width: min(1400px, calc(100% - 72px));
+  margin: 0 auto;
+  padding: 50px 0;
+  border-top: 1px solid var(--line);
+}
+.runnerPortalFooter strong,
+.runnerPortalFooter span {
+  display: block;
+}
+.runnerPortalFooter span {
+  margin-top: 5px;
+  color: var(--green);
+}
+.runnerPortalFooter p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 1000px) {
+  .runnerPortalNav {
+    grid-template-columns: 1fr auto;
+  }
+  .runnerPortalNav nav {
+    display: none;
+  }
+  .runnerPortalHero,
+  .runnerPortalSectionHeader {
+    grid-template-columns: 1fr;
+  }
+  .runnerPortalRewards {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+@media (max-width: 650px) {
+  .runnerPortalNav {
+    width: calc(100% - 24px);
+  }
+  .runnerPortalBrand span {
+    display: none;
+  }
+  .runnerPortalBack {
+    padding: 11px;
+    font-size: 9px;
+  }
+  .runnerPortalHero,
+  .runnerPortalSection,
+  .runnerPortalFooter {
+    width: calc(100% - 30px);
+  }
+  .runnerPortalHero {
+    min-height: auto;
+    padding: 80px 0;
+  }
+  .runnerPortalHero h1 {
+    font-size: 64px;
+    letter-spacing: -5px;
+  }
+  .runnerPortalTimer {
+    grid-template-columns: repeat(2,1fr);
+  }
+  .runnerPortalTableHead {
+    display: none;
+  }
+  .runnerPortalLeaderboard article {
+    grid-template-columns: 50px 1fr auto;
+    gap: 10px;
+    padding: 15px;
+  }
+  .runnerPortalLeaderboard code {
+    display: none;
+  }
+  .runnerPortalRewards,
+  .runnerPortalProfileGrid,
+  .runnerPortalRules,
+  .runnerPortalFooter {
+    grid-template-columns: 1fr;
+  }
+}

@@ -23,7 +23,7 @@ export default function Home() {
           <a href="#about">About</a>
           <a href="#tokenomics">Tokenomics</a>
           <a href="#dashboard">Dashboard</a>
-          <a href="#bull-runner">Bull Runner</a>
+          <a href="/bull-runner">Bull Runner</a>
           <a href="#community-video">Community</a>
           <a href="#bull-hub">Bull Hub</a>
           <a href="#roadmap">Roadmap</a>
