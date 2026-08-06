@@ -1,0 +1,45 @@
+BULLE v14 — ARENA EXPERIENCE
+
+New:
+- Slower breathing movement for the full arena scene
+- Subtle cursor-following eye glow
+- Animated smoke
+- Stadium light sweep
+- Floating green particles
+- Smaller, cleaner title
+- Elegant breathing ENTER button
+- Door-selection animation before navigation
+- Full-screen arena transition
+
+This package does not require Tailwind CSS.
+
+TEST IN THE SEPARATE PREVIEW FOLDER
+
+1. Stop the current preview server.
+2. Replace the previous Arena Preview folder with this package.
+3. Enter the extracted folder:
+   cd ~/Downloads/BULLE-v14-Arena-Experience
+4. Install dependencies:
+   npm install
+5. Run:
+   npm run dev
+6. Open the localhost address shown in Terminal.
+
+WHEN APPROVED FOR THE LIVE PROJECT
+
+Copy:
+- app/page.tsx
+- components/ArenaLanding.tsx
+- public/bulle-arena-hero.png
+
+Then copy the Arena CSS blocks from app/globals.css into the live project's
+globals.css, or replace app/globals.css only if both projects are on the same
+version.
+
+Before publishing:
+npm run build
+
+Publish:
+git add .
+git commit -m "Add animated BulleCoin Arena experience"
+git push origin main

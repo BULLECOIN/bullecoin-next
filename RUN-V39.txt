@@ -1,0 +1,17 @@
+BULLE V39 — MANUAL REWARD VAULT
+
+1. In Supabase open SQL Editor and run: supabase/rewards.sql
+2. Confirm SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY exist in Vercel Production.
+3. Recommended: set SOLANA_RPC_URL to a reliable Solana mainnet RPC endpoint.
+4. Deploy this version.
+5. Earn at least 1,000 RP, then use Profile > Request Manual Claim.
+6. Verify that Supabase reward_claims receives a pending request.
+
+MANUAL PAYMENT
+- Review player activity and the request.
+- Send the approved BULLE amount manually from the rewards wallet.
+- Set status to paid and add the Solana transaction signature.
+- Never add a seed phrase or treasury private key to Vercel or this project.
+
+RATE: 1,000 RP = USD $0.10. Maximum USD $4 per wallet per UTC day.
+The BULLE amount uses the live market price at request time.

@@ -1,0 +1,29 @@
+BULLE BEAR SMASH V19 — MAC
+
+1. Unzip the package in Downloads.
+2. Open Terminal.
+3. Type: cd 
+4. Drag the BULLE-V19-English-Music-Profile folder into Terminal and press Enter.
+5. Run: npm install
+6. Run: npm run dev
+7. Open in Safari or Chrome: http://localhost:3000/bull-runner
+
+IMPORTANT
+- Do not type the folder path by itself. The command must begin with cd and a space.
+- If port 3000 is busy, Terminal will show another address, usually http://localhost:3001.
+- Game progress is stored locally in the browser.
+- Music starts only after pressing the SOUND or MUSIC button because browsers block automatic audio.
+
+NEW IN V19
+- The original arena music is now available on the home screen at a lower volume.
+- The in-game music keeps its current volume.
+- Downloaded profile cards show the equipped Bull skin and hammer.
+- The complete visible game interface is now in English.
+
+INCLUDED FROM V18
+- Warm fantasy tournament interface.
+- Three randomly selected arenas: Neon, Solana and Diamond.
+- Collectible Bull skins, enemy avatars and customizable hammers.
+- Separate Story and Tournament modes.
+- Three daily Tournament runs.
+- Rankings, Workshop and shareable fighter profile.

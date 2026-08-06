@@ -1,0 +1,10 @@
+# Launch time: Sunday, August 2, 2026 at 4:00 PM in Monterrey
+NEXT_PUBLIC_BULLE_LAUNCH_AT=2026-08-02T16:00:00-06:00
+
+# Add these only after creating the official token.
+BULLE_TOKEN_ADDRESS=
+NEXT_PUBLIC_BULLE_PUMP_URL=
+
+# Update only with creator fees that you have verified.
+BULLE_CREATOR_FEES_SOL=0
+BULLE_DISTRIBUTED_SOL=0

@@ -1,0 +1,48 @@
+BULLE v5 — REEMPLAZO LIMPIO
+
+NO borres package.json, package-lock.json, node_modules, next.config.ts,
+postcss.config.mjs, eslint.config.mjs, .git ni tus archivos de GitHub.
+
+1. Cierra el servidor con Control + C.
+
+2. Dentro de /Users/dbsmain/bullecoin BORRA únicamente:
+   - app
+   - components
+   - public
+   - .next
+   - tsconfig.json
+
+3. Del ZIP copia dentro de /Users/dbsmain/bullecoin:
+   - app
+   - components
+   - public
+   - tsconfig.json
+
+4. Abre la carpeta correcta en VS Code:
+   File > Open Folder > /Users/dbsmain/bullecoin
+   No uses "Untitled Workspace".
+
+5. En Terminal ejecuta:
+   cd ~/bullecoin
+   rm -rf .next
+   npm run build
+
+6. Si compila:
+   npm run dev
+
+7. Abre la dirección Local que muestra Terminal.
+
+8. Publica:
+   git add .
+   git commit -m "Install clean BULLE v5"
+   git push
+
+La página incluye:
+- Hero
+- About
+- Tokenomics
+- Live Dashboard
+- Bull Hub
+- Roadmap
+- Community
+- APIs /api/token-data y /api/bull-hub

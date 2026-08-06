@@ -1,0 +1,28 @@
+BULLECOIN ARENA PREVIEW
+
+Run this in a separate folder so your current live project is not replaced.
+
+1. Unzip the package.
+2. Open Terminal and enter the extracted folder:
+   cd ~/Downloads/BULLE-v13-Arena-Preview
+3. Install dependencies:
+   npm install
+4. Start the preview:
+   npm run dev
+5. Open the localhost address shown in Terminal.
+
+This preview keeps Bull Runner and the current API routes.
+
+When approved, copy these into your main project:
+- app/page.tsx
+- components/ArenaLanding.tsx
+- public/bulle-arena-hero.png
+- the Arena CSS block at the end of app/globals.css
+
+Before publishing:
+npm run build
+
+Publish:
+git add .
+git commit -m "Add BulleCoin Arena landing"
+git push origin main

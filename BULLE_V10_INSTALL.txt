@@ -1,0 +1,41 @@
+BULLE v10 — GARAGE, ACHIEVEMENTS, HALL OF FAME
+
+New:
+- Cyber Bull Garage
+- Five visual skin tiers
+- Achievement showcase
+- Hall of Fame placeholder
+- Verified prize-pool display
+- New portal navigation links
+
+Important:
+- Skins and achievements are visual previews in this version.
+- The prize pool intentionally shows 0 SOL until a verified creator-fee
+  data source is connected.
+- Do not activate payouts automatically yet.
+
+Install:
+1. Stop the server.
+2. Replace:
+   app
+   components
+   lib
+   public
+   tsconfig.json
+3. Keep:
+   .env.local
+   package.json
+   package-lock.json
+   node_modules
+   .git
+4. Run:
+   cd ~/bullecoin
+   rm -rf .next
+   npm run build
+   npm run dev
+5. Open:
+   /bull-runner
+6. Publish:
+   git add .
+   git commit -m "Add Bull Runner garage and achievements"
+   git push

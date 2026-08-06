@@ -1,0 +1,45 @@
+BULLE V40 — AUTOMATIC REWARDS
+
+PUBLIC PAYOUT WALLET
+AWNsGEGg5bNFm9yb7mGaFnv8VwHXPp2LmK3Fc23UgoiK
+
+SAFETY LIMITS
+- 1,000 RP = USD $0.10 in BULLE at the live price.
+- Maximum USD $2 per wallet per UTC day.
+- One automatic redemption per wallet per UTC day.
+- Default global automatic budget: USD $20 per UTC day.
+
+1. SUPABASE
+Run this complete migration in Supabase SQL Editor:
+supabase/rewards-v40.sql
+
+2. FUND ONLY THE LIMITED PAYOUT WALLET
+Send a limited amount of BULLE and a small amount of SOL to the public payout wallet above.
+Keep the main 10M BULLE treasury as the reserve wallet.
+
+3. VERCEL PRODUCTION ENVIRONMENT VARIABLES
+Keep the existing SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY and SOLANA_RPC_URL.
+Add:
+
+REWARD_PAYER_SECRET_KEY = the exported private key of ONLY the limited payout wallet
+REWARD_GLOBAL_DAILY_USD_LIMIT = 20
+REWARD_PAYOUTS_ENABLED = false
+
+Create REWARD_PAYER_SECRET_KEY as a Sensitive variable. Paste it directly in Vercel.
+Never place it in source code, GitHub, screenshots, chat, email or documentation.
+The server refuses to operate unless the secret resolves to AWNsGEGg5bNFm9yb7mGaFnv8VwHXPp2LmK3Fc23UgoiK.
+
+4. DEPLOY WITH PAYOUTS PAUSED
+Redeploy and confirm /api/rewards/pool shows the payout wallet balances.
+The game should show AUTOMATIC REWARDS PAUSED.
+
+5. ENABLE A SMALL LIVE TEST
+Change REWARD_PAYOUTS_ENABLED to true and redeploy.
+Use a test player wallet with at least 1,000 RP. Redeem once.
+Confirm the BULLE deposit in the player wallet and the paid row plus tx_signature in Supabase reward_claims.
+
+EMERGENCY STOP
+Change REWARD_PAYOUTS_ENABLED to false and redeploy. This immediately blocks new automatic claims.
+
+IMPORTANT
+This is a limited hot wallet. Never fund it with the full reserve. Rotate its key if access is suspected, and reduce the global daily budget whenever needed.

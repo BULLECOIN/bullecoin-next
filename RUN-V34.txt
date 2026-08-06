@@ -1,0 +1,27 @@
+BULLECOIN V34 — PROFESSIONAL BULL HUB
+
+1. Open Terminal.
+2. Enter the project folder. Example:
+   cd ~/Downloads/bullecoin-next-deploy-v34
+3. Install dependencies:
+   npm install
+4. Start the local site:
+   npm run dev
+5. Open:
+   http://localhost:3000
+
+V34 CHANGES
+- Professional Dexscreener-inspired Bull Hub layout.
+- Large live chart and dedicated Jupiter execution panel.
+- BULLECOIN selected and visible by default.
+- Official BUY BULLE shortcuts in the market header and Movers.
+- Phantom, Solflare and Backpack selector.
+- Mobile wallet links open BulleCoin inside the selected wallet browser.
+- TIP panel moved to the lower-left corner.
+- Responsive desktop and mobile terminal layouts.
+
+SECURITY
+- Bull Hub never requests seed phrases or private keys.
+- Every connection, swap and tip must be approved in the selected wallet.
+- Always verify the BULLE mint before signing:
+  EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump

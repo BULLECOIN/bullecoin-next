@@ -1,0 +1,33 @@
+BULLE v12.1 — GIANT COUNTDOWN
+
+New:
+- Giant full-width launch countdown
+- Oversized neon digits
+- Blinking separators
+- Responsive 4-column desktop / 2x2 mobile layout
+- Launch status messaging
+- Security and data-source notices
+
+Install:
+1. Stop the server.
+2. Replace:
+   app
+   components
+   lib
+   public
+   tsconfig.json
+3. Keep:
+   .env.local
+   package.json
+   package-lock.json
+   node_modules
+   .git
+4. Run:
+   cd ~/bullecoin
+   rm -rf .next
+   npm run build
+   npm run dev
+5. Publish:
+   git add .
+   git commit -m "Add giant BULLE launch countdown"
+   git push origin main

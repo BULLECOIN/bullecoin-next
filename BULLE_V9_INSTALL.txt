@@ -1,0 +1,40 @@
+BULLE v9 — DEDICATED BULL RUNNER PORTAL
+
+New route:
+https://bullecoin.io/bull-runner
+
+Includes:
+- Full Bull Runner page
+- Play, Leaderboard, Rewards, Profile and Rules navigation
+- Current-week UTC countdown
+- Global Top 10
+- Weekly 30% rewards display
+- Player identity/profile roadmap
+- Fair-play rules
+- Existing server validation and Supabase APIs
+
+Install:
+1. Stop the server.
+2. Replace:
+   app
+   components
+   lib
+   public
+   tsconfig.json
+3. Keep .env.local, package.json, package-lock.json, node_modules and .git.
+4. Run:
+   cd ~/bullecoin
+   rm -rf .next
+   npm run build
+   npm run dev
+5. Open:
+   http://localhost:3000/bull-runner
+   or use the port shown in Terminal.
+6. Publish:
+   git add .
+   git commit -m "Add dedicated Bull Runner portal"
+   git push
+
+Important:
+Do not activate real payouts until official terms, legal eligibility,
+anti-cheat finalist review and payout procedures are published.

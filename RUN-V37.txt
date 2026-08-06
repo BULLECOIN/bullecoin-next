@@ -1,0 +1,22 @@
+BULLECOIN V37 — TOKEN ICONS + MOBILE BULL HUB
+
+RUN LOCALLY
+1. Open Terminal.
+2. Enter the folder:
+   cd ~/Downloads/bullecoin-next-deploy-v37
+3. Install dependencies:
+   npm install
+4. Start:
+   npm run dev
+5. Open http://localhost:3000
+
+BULL HUB CHANGES ONLY
+- Token images now use GeckoTerminal's included base-token metadata.
+- Missing or failed token artwork falls back to the token initial.
+- Compact mobile screener keeps the most useful market columns visible.
+- Secondary timeframes and buy/sell counts are hidden only on small screens.
+- Smooth horizontal scrolling remains available for market data.
+- Mobile chart and Jupiter swap panels fit the available width.
+
+OFFICIAL BULLE MINT
+EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump

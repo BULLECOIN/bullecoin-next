@@ -1,0 +1,45 @@
+BULLECOIN V30 — TIP RPC FIXED
+
+1. Open Terminal.
+2. Type: cd 
+3. Drag the BULLE-V30-Tip-RPC-Fixed folder into Terminal and press Enter.
+4. Run: npm install
+5. Run: npm run dev
+6. Open: http://localhost:3000
+
+WHAT IS NEW
+- NEWS shows four editorial stories in a larger 2 x 2 grid.
+- BULL HUB opens on TRADE with BULLECOIN selected by default.
+- BUY and SELL use Jupiter's official swap plugin.
+- Wallet connection and transaction approval stay inside the swap flow.
+- TRENDING lists 24H change, market cap, volume, liquidity and CA.
+- Selecting TRADE TOKEN sends that mint to the trade screen.
+- Session P/L estimate can be shared on X.
+- TIP opens a user-approved Solana wallet request to the community wallet.
+- The selected token includes a live DexScreener chart.
+- Trending tokens include icons, MC, 24H volume, CA and direct trade access.
+- Jupiter Ultra Referral Account: DvMBw6bVSTPmt3SdD8uUHnSF36ibZcbRbkyveANunVWb
+- Bull Hub integrator fee: 0.50% (50 bps), displayed in the interface.
+- Profit/Loss was removed because the embedded swap does not provide reliable wallet-wide cost basis.
+- Four Pump.fun movers update automatically every 60 seconds.
+- Movers include icon, MC, 24H volume, active-wallet estimate, CA and direct trade.
+- The home wallet button supports Phantom's current provider path and opens the universal Bull Hub connector as fallback.
+- The top button opens the same wallet selector used by TIP.
+- Wallet choices: Phantom, Solflare and Backpack.
+- TIP connects first and then requests a separate signed SOL transfer.
+- Solana transaction code is bundled locally instead of loaded from an external script.
+- The latest Solana blockhash is requested through the website server to avoid browser RPC blocking.
+- TIP now displays the exact wallet/RPC error when a request cannot reach the signature step.
+- The static WALLET SIGNATURE REQUIRED badge was replaced with SELF-CUSTODY WALLET.
+- Default TIP amount is 0.01 SOL; 0.05 and 0.10 SOL remain optional.
+
+OFFICIAL BULLE MINT
+EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump
+
+OFFICIAL TIP WALLET
+5Azx3Gby54UMrATmrUYGSa58evLKhgUgdmHuKAfFyqvg
+
+SECURITY
+- The website never requests or stores a seed phrase or private key.
+- Every swap and tip must be reviewed and approved in the user's wallet.
+- The P/L box is a manual session estimate; it is not audited wallet-wide cost basis.
