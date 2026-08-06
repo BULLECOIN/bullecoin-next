@@ -1,0 +1,19 @@
+{
+  "app": {
+    "[project]/Downloads/bullecoin-next-deploy-v33/app/_not-found/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2"
+    ],
+    "[project]/Downloads/bullecoin-next-deploy-v33/app/bull-runner/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2"
+    ],
+    "[project]/Downloads/bullecoin-next-deploy-v33/app/page": [
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/0acc7fdf55eb3220-s.p.3oprs0vbfre0x.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

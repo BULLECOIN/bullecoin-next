@@ -1,0 +1,123 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/arena-news",
+      "regex": "^/api/arena\\-news(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/arena\\-news(?:/)?$"
+    },
+    {
+      "page": "/api/bull-hub",
+      "regex": "^/api/bull\\-hub(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/bull\\-hub(?:/)?$"
+    },
+    {
+      "page": "/api/launch-data",
+      "regex": "^/api/launch\\-data(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/launch\\-data(?:/)?$"
+    },
+    {
+      "page": "/api/runner/challenge",
+      "regex": "^/api/runner/challenge(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/runner/challenge(?:/)?$"
+    },
+    {
+      "page": "/api/runner/leaderboard",
+      "regex": "^/api/runner/leaderboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/runner/leaderboard(?:/)?$"
+    },
+    {
+      "page": "/api/runner/start",
+      "regex": "^/api/runner/start(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/runner/start(?:/)?$"
+    },
+    {
+      "page": "/api/runner/submit",
+      "regex": "^/api/runner/submit(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/runner/submit(?:/)?$"
+    },
+    {
+      "page": "/api/solana-blockhash",
+      "regex": "^/api/solana\\-blockhash(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/solana\\-blockhash(?:/)?$"
+    },
+    {
+      "page": "/api/token-data",
+      "regex": "^/api/token\\-data(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/token\\-data(?:/)?$"
+    },
+    {
+      "page": "/bull-runner",
+      "regex": "^/bull\\-runner(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/bull\\-runner(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

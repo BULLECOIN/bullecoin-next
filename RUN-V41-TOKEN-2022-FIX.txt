@@ -1,0 +1,14 @@
+BULLE V41 - AUTOMATIC REWARD TOKEN PROGRAM FIX
+
+This version keeps all V40 automatic reward settings and adds support for both:
+- Solana SPL Token
+- Solana Token-2022
+
+Deploy normally through GitHub/Vercel. Keep the existing V40 environment variables.
+
+Before testing again, remove only the failed test row whose:
+- status is failed
+- tx_signature is NULL
+- paid_at is NULL
+
+Never remove a paid row or a row with a transaction signature.

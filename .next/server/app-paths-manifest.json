@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/arena-news/route": "app/api/arena-news/route.js",
+  "/api/bull-hub/route": "app/api/bull-hub/route.js",
+  "/api/launch-data/route": "app/api/launch-data/route.js",
+  "/api/runner/challenge/route": "app/api/runner/challenge/route.js",
+  "/api/runner/leaderboard/route": "app/api/runner/leaderboard/route.js",
+  "/api/runner/start/route": "app/api/runner/start/route.js",
+  "/api/runner/submit/route": "app/api/runner/submit/route.js",
+  "/api/solana-blockhash/route": "app/api/solana-blockhash/route.js",
+  "/api/token-data/route": "app/api/token-data/route.js",
+  "/bull-runner/page": "app/bull-runner/page.js",
+  "/page": "app/page.js"
+}

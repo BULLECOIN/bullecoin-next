@@ -1,0 +1,3 @@
+module.exports=[90857,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(83412);a.n(d("[project]/Downloads/bullecoin-next-deploy-v33/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},75116,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(83412);a.n(d("[project]/Downloads/bullecoin-next-deploy-v33/node_modules/next/dist/client/components/builtin/global-error.js"))},20765,a=>{"use strict";a.i(90857);var b=a.i(75116);a.n(b)},11080,a=>{a.n(a.i(20765))}];
+
+//# sourceMappingURL=1h9r_next_dist_client_components_builtin_global-error_1bk06q0.js.map
