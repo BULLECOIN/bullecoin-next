@@ -1,0 +1,10 @@
+BULLE V42 - PHANTOM MOBILE SHARE AND PROFILE IMAGE FIX
+
+Changes:
+- Share on X uses the phone's native share sheet instead of a popup.
+- Profile images use native file sharing on compatible mobile browsers.
+- A press-and-hold image preview is shown when direct mobile file sharing is unavailable.
+- Desktop browsers keep the normal PNG download.
+
+This version includes the V41 Token-2022 automatic reward fix.
+No new environment variables or Supabase migrations are required.
