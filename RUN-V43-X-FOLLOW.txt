@@ -1,0 +1,8 @@
+BULLE V43 - PHANTOM MOBILE X FOLLOW FIX
+
+- The Follow Official X button no longer waits before opening.
+- On mobile it uses the X app deep link for @BulleCoinOF.
+- Desktop keeps the normal x.com profile link.
+- Includes the V41 automatic Token-2022 rewards fix and V42 mobile profile sharing fix.
+
+No new environment variables or Supabase migrations are required.

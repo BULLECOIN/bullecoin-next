@@ -149,6 +149,22 @@ export default function ArenaLanding() {
     }, 720);
   }
 
+  function openOfficialX() {
+    setActiveDoor("OFFICIAL X");
+    setTransitionLabel("OFFICIAL X");
+    const mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (mobile) {
+      window.location.href = "twitter://user?screen_name=BulleCoinOF";
+    } else {
+      const opened = window.open(xUrl, "_blank", "noopener,noreferrer");
+      if (!opened) window.location.href = xUrl;
+    }
+    window.setTimeout(() => {
+      setTransitionLabel("");
+      setActiveDoor("");
+    }, 900);
+  }
+
   function connectWallet() {
     setWalletPickerOpen(true);
   }
@@ -297,13 +313,7 @@ export default function ArenaLanding() {
           <button
             type="button"
             className={`arenaCard arenaFollow ${activeDoor === "OFFICIAL X" ? "arenaDoorActive" : ""}`}
-            onClick={() =>
-              enterDoor({
-                href: xUrl,
-                external: true,
-                label: "OFFICIAL X",
-              })
-            }
+            onClick={openOfficialX}
           >
             <small>FOLLOW</small><strong>OFFICIAL X</strong>
           </button>
