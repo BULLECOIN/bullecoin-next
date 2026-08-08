@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { SERVER_BULLE_MINT } from "../../../lib/serverBulleConfig";
+import { SERVER_BULLE_MIGRATION_STATUS, SERVER_BULLE_MINT } from "../../../lib/serverBulleConfig";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +22,7 @@ function getBestPair(pairs: DexPair[]) {
 }
 
 export async function GET() {
-  const mintAddress = SERVER_BULLE_MINT;
+  const mintAddress = SERVER_BULLE_MIGRATION_STATUS === "prelaunch" ? "" : SERVER_BULLE_MINT;
   const rpcUrl = process.env.SOLANA_RPC_URL ?? "https://api.mainnet-beta.solana.com";
 
   if (!mintAddress) {

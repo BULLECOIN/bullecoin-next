@@ -5,11 +5,12 @@ import BullHubTrade from "./BullHubTrade";
 import WalletPicker from "./WalletPicker";
 import PlayerProfileSetup, { LocalPlayerProfile, readLocalProfile } from "./PlayerProfileSetup";
 import TokenomicsPanel from "./TokenomicsPanel";
-import { PUBLIC_BULLE_MIGRATION_STATUS, PUBLIC_BULLE_MINT, PUBLIC_BULLE_VERSION, PUBLIC_LAUNCH_AT_UTC, PUBLIC_LAUNCH_MODE } from "../lib/publicBulleConfig";
+import { PUBLIC_BULLE_MINT, PUBLIC_LAUNCH_AT_UTC, PUBLIC_LAUNCH_MODE } from "../lib/publicBulleConfig";
 
 const xUrl = "https://x.com/BulleCoinOF";
 const telegramUrl = "https://t.me/+k7ieRmAdKgpmNjcx";
 const tokenAddress = PUBLIC_BULLE_MINT;
+const launchPending = PUBLIC_LAUNCH_MODE !== "live";
 
 type Destination = {
   href: string;
@@ -249,7 +250,6 @@ export default function ArenaLanding() {
       className="arenaLanding arenaExperience"
       onMouseMove={trackPointer}
     >
-      {PUBLIC_BULLE_MIGRATION_STATUS !== "v1" && <div className={`bulleMigrationBanner ${PUBLIC_BULLE_MIGRATION_STATUS}`}><b>{PUBLIC_BULLE_MIGRATION_STATUS === "prelaunch" ? "BULLE V2 MIGRATION PREPARATION" : `BULLE ${PUBLIC_BULLE_VERSION} IS LIVE`}</b><span>{PUBLIC_BULLE_MIGRATION_STATUS === "prelaunch" ? "V1 remains official until the new CA is published. Rewards are paused during migration." : "Verify the official CA before every trade."}</span></div>}
       <div className="arenaScene" aria-hidden="true">
         <img
           src="/bulle-arena-hero.png"
@@ -296,10 +296,10 @@ export default function ArenaLanding() {
         <section className="arenaTitleBlock arenaTitleCompact">
           <h1><span>BULLE</span><strong>COIN</strong></h1>
           <p>THE CYBER BULL OF SOLANA</p>
-          <b>{launchCountdown.active ? "BULLE V2 LAUNCH COUNTDOWN" : PUBLIC_LAUNCH_MODE === "countdown" ? "BULLE V2 LAUNCH UPDATE IN PROGRESS" : "THE ARENA IS LIVE"}</b>
+          <b>{launchCountdown.active ? "BULLECOIN LAUNCH COUNTDOWN" : launchPending ? "BULLECOIN LAUNCH UPDATE IN PROGRESS" : "THE ARENA IS LIVE"}</b>
         </section>
 
-        {launchCountdown.active && <section className="bulleLaunchCountdown" aria-label="BULLE V2 launch countdown"><small>LAUNCHING · AUG 11 · 00:00 UTC</small><div><span><b>{String(launchCountdown.days).padStart(2,"0")}</b><em>DAYS</em></span><i>:</i><span><b>{String(launchCountdown.hours).padStart(2,"0")}</b><em>HOURS</em></span><i>:</i><span><b>{String(launchCountdown.minutes).padStart(2,"0")}</b><em>MIN</em></span><i>:</i><span><b>{String(launchCountdown.seconds).padStart(2,"0")}</b><em>SEC</em></span></div><p>MONDAY · AUG 10 · 6:00 PM MONTERREY</p></section>}
+        {launchCountdown.active && <section className="bulleLaunchCountdown" aria-label="BulleCoin launch countdown"><small>LAUNCHING · AUG 11 · 00:00 UTC</small><div><span><b>{String(launchCountdown.days).padStart(2,"0")}</b><em>DAYS</em></span><i>:</i><span><b>{String(launchCountdown.hours).padStart(2,"0")}</b><em>HOURS</em></span><i>:</i><span><b>{String(launchCountdown.minutes).padStart(2,"0")}</b><em>MIN</em></span><i>:</i><span><b>{String(launchCountdown.seconds).padStart(2,"0")}</b><em>SEC</em></span></div><p>MONDAY · AUG 10 · 6:00 PM MONTERREY</p></section>}
 
         <nav className="arenaMenu" aria-label="BulleCoin arena doors">
           <button
@@ -344,20 +344,20 @@ export default function ArenaLanding() {
         </button>
 
         <footer className="arenaStatus">
-          <small>BULLECOIN // LIVE MARKET</small>
-          <strong>BULLE MARKET DATA</strong>
+          <small>BULLECOIN // {launchPending ? "LAUNCH TERMINAL" : "LIVE MARKET"}</small>
+          <strong>{launchPending ? "BULLE MARKET OPENS AT LAUNCH" : "BULLE MARKET DATA"}</strong>
 
           <div className="arenaLiveStats">
-            <span><small>PRICE</small><b>{liveToken.priceUsd!==null?tokenPrice(liveToken.priceUsd):"LOADING"}</b></span>
-            <span><small>MARKET CAP</small><b>{liveToken.marketCapUsd!==null?compactUsd(liveToken.marketCapUsd):"PENDING"}</b></span>
-            <span><small>24H VOLUME</small><b>{liveToken.volume24hUsd!==null?compactUsd(liveToken.volume24hUsd):"PENDING"}</b></span>
-            <button type="button" onClick={()=>setInfoPanel("hub")}>BUY BULLE ↗</button>
+            <span><small>PRICE</small><b>{launchPending?"—":liveToken.priceUsd!==null?tokenPrice(liveToken.priceUsd):"LOADING"}</b></span>
+            <span><small>MARKET CAP</small><b>{launchPending?"—":liveToken.marketCapUsd!==null?compactUsd(liveToken.marketCapUsd):"PENDING"}</b></span>
+            <span><small>24H VOLUME</small><b>{launchPending?"—":liveToken.volume24hUsd!==null?compactUsd(liveToken.volume24hUsd):"PENDING"}</b></span>
+            <button type="button" onClick={()=>setInfoPanel("hub")}>{launchPending?"OPEN BULL HUB ↗":"BUY BULLE ↗"}</button>
           </div>
 
           <ul>
             <li>WEBSITE: <b>LIVE</b></li>
             <li>COMMUNITY: <b>GROWING</b></li>
-            <li className="arenaTokenStatus">{PUBLIC_LAUNCH_MODE === "countdown" ? "V1 TOKEN: " : "TOKEN: "}<b>LIVE</b>{tokenAddress&&<button type="button" onClick={copyTokenAddress}>{copied?"CA COPIED":`COPY CA ${tokenAddress.slice(0,4)}...${tokenAddress.slice(-4)}`}</button>}</li>
+            <li className="arenaTokenStatus">BULLE: <b className={launchPending?"arenaPending":""}>{launchPending?"LAUNCH PENDING":"LIVE"}</b>{!launchPending&&tokenAddress&&<button type="button" onClick={copyTokenAddress}>{copied?"CA COPIED":`COPY CA ${tokenAddress.slice(0,4)}...${tokenAddress.slice(-4)}`}</button>}</li>
           </ul>
 
           <p>BUILT ON SOLANA</p>

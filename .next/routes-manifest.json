@@ -60,6 +60,18 @@
       "namedRegex": "^/api/launch\\-data(?:/)?$"
     },
     {
+      "page": "/api/rewards/claim",
+      "regex": "^/api/rewards/claim(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/rewards/claim(?:/)?$"
+    },
+    {
+      "page": "/api/rewards/pool",
+      "regex": "^/api/rewards/pool(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/rewards/pool(?:/)?$"
+    },
+    {
       "page": "/api/runner/challenge",
       "regex": "^/api/runner/challenge(?:/)?$",
       "routeKeys": {},

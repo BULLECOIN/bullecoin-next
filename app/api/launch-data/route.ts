@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { SERVER_BULLE_MINT } from "../../../lib/serverBulleConfig";
+import { SERVER_BULLE_MIGRATION_STATUS, SERVER_BULLE_MINT } from "../../../lib/serverBulleConfig";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -41,7 +41,7 @@ function numberFromEnv(name: string) {
 }
 
 export async function GET() {
-  const tokenAddress = SERVER_BULLE_MINT;
+  const tokenAddress = SERVER_BULLE_MIGRATION_STATUS === "prelaunch" ? "" : SERVER_BULLE_MINT;
   const pumpUrl = process.env.NEXT_PUBLIC_BULLE_PUMP_URL?.trim() ?? "";
   const creatorFeesSol = numberFromEnv("BULLE_CREATOR_FEES_SOL");
   const distributedSol = numberFromEnv("BULLE_DISTRIBUTED_SOL");

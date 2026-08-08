@@ -92,6 +92,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/api/rewards/claim/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/rewards/claim">> = Specific
+  const handler = {} as typeof import("../../app/api/rewards/claim/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/rewards/pool/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/rewards/pool">> = Specific
+  const handler = {} as typeof import("../../app/api/rewards/pool/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/api/runner/challenge/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/runner/challenge">> = Specific

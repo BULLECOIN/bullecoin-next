@@ -308,8 +308,8 @@ self.__SERVER_FILES_MANIFEST={
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/Users/dbsmain/Downloads/bullecoin-next-deploy-v33",
-  "relativeAppDir": "Downloads/bullecoin-next-deploy-v33",
+  "appDir": "/Users/dbsmain/Downloads/bullecoin-v45-final-git",
+  "relativeAppDir": "Downloads/bullecoin-v45-final-git",
   "files": [
     ".next/package.json",
     ".next/routes-manifest.json",

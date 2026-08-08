@@ -4,6 +4,8 @@
   "/api/arena-news/route": "app/api/arena-news/route.js",
   "/api/bull-hub/route": "app/api/bull-hub/route.js",
   "/api/launch-data/route": "app/api/launch-data/route.js",
+  "/api/rewards/claim/route": "app/api/rewards/claim/route.js",
+  "/api/rewards/pool/route": "app/api/rewards/pool/route.js",
   "/api/runner/challenge/route": "app/api/runner/challenge/route.js",
   "/api/runner/leaderboard/route": "app/api/runner/leaderboard/route.js",
   "/api/runner/start/route": "app/api/runner/start/route.js",

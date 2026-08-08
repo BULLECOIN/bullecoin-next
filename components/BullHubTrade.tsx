@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import WalletPicker from "./WalletPicker";
-import { PUBLIC_BULLE_MINT } from "../lib/publicBulleConfig";
+import { PUBLIC_BULLE_MINT, PUBLIC_LAUNCH_MODE } from "../lib/publicBulleConfig";
 
 const SOL_MINT = "So11111111111111111111111111111111111111112";
 const BULLE_MINT = PUBLIC_BULLE_MINT;
+const BULLE_TRADING_ENABLED = PUBLIC_LAUNCH_MODE === "live";
 const REFERRAL_ACCOUNT = "DvMBw6bVSTPmt3SdD8uUHnSF36ibZcbRbkyveANunVWb";
 const REFERRAL_FEE_BPS = 50;
 
@@ -88,6 +89,7 @@ export default function BullHubTrade({ trends, movers, loading, copiedKey, onCop
   }
 
   function tradeBulle() {
+    if (!BULLE_TRADING_ENABLED) return;
     setSelected({ name: "BULLECOIN", mint: BULLE_MINT, imageUrl: "/bulle-logo.jpg" });
     setSide("BUY");
     setTab("trade");
@@ -98,9 +100,9 @@ export default function BullHubTrade({ trends, movers, loading, copiedKey, onCop
   const selectedMarketCap = selected.mint === BULLE_MINT ? bulleMarket.marketCapUsd : selectedTrend?.marketCap ?? null;
   const selectedVolume = selected.mint === BULLE_MINT ? bulleMarket.volume24hUsd : selectedTrend?.volume24h ?? null;
 
-  return <section className="arenaNewsPanel arenaMarketRoom bullHubRoom bullHubTerminal">
+  return <section className={`arenaNewsPanel arenaMarketRoom bullHubRoom bullHubTerminal ${BULLE_TRADING_ENABLED?"":"bullHubPrelaunch"}`}>
     <header className="arenaNewsHeader bullHubHeader"><div><small>BULLECOIN // SOLANA MARKET TERMINAL</small><h2>BULL HUB</h2><p>Professional market intelligence and self-custody execution powered by Jupiter.</p></div><button className="bullHubConnect" onClick={()=>setHubWalletPicker(true)}><i />{walletAddress?`${walletAddress.slice(0,4)}...${walletAddress.slice(-4)}`:"CONNECT WALLET"}<small>PHANTOM · SOLFLARE · BACKPACK</small></button></header>
-    <div className="bullHubTicker"><button onClick={tradeBulle}><span className="bullHubTokenIcon"><img src="/bulle-logo.jpg" alt="BULLECOIN"/></span><strong>BULLE / SOL</strong><em>OFFICIAL</em></button><dl><div><dt>PRICE</dt><dd>{selectedPrice!==null?compactUsd(selectedPrice):"PENDING"}</dd></div><div><dt>MARKET CAP</dt><dd>{selectedMarketCap!==null?compactUsd(selectedMarketCap):"PENDING"}</dd></div><div><dt>24H VOLUME</dt><dd>{selectedVolume!==null?compactUsd(selectedVolume):"PENDING"}</dd></div><div><dt>NETWORK</dt><dd>SOLANA</dd></div></dl><button className="bullHubQuickBulle" onClick={tradeBulle}>BUY BULLE</button></div>
+    {BULLE_TRADING_ENABLED ? <div className="bullHubTicker"><button onClick={tradeBulle}><span className="bullHubTokenIcon"><img src="/bulle-logo.jpg" alt="BULLECOIN"/></span><strong>BULLE / SOL</strong><em>OFFICIAL</em></button><dl><div><dt>PRICE</dt><dd>{selectedPrice!==null?compactUsd(selectedPrice):"PENDING"}</dd></div><div><dt>MARKET CAP</dt><dd>{selectedMarketCap!==null?compactUsd(selectedMarketCap):"PENDING"}</dd></div><div><dt>24H VOLUME</dt><dd>{selectedVolume!==null?compactUsd(selectedVolume):"PENDING"}</dd></div><div><dt>NETWORK</dt><dd>SOLANA</dd></div></dl><button className="bullHubQuickBulle" onClick={tradeBulle}>BUY BULLE</button></div> : <div className="bullHubLaunchNotice"><span>OFFICIAL BULLE MARKET</span><b>TRADING OPENS AT LAUNCH</b><p>The official token and contract address remain hidden until launch. You can still explore markets and trade other Solana tokens through Jupiter.</p></div>}
     {tab === "trade" && <div className="bullHubTradeNav"><button onClick={()=>setTab("trending")}>← BACK TO 24H MARKETS</button><span>SELECTED MARKET · {selected.name}</span></div>}
 
     {tab === "trade" && <div className="bullHubTradeLayout bullHubDesk">

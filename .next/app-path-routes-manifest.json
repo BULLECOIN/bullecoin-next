@@ -4,6 +4,8 @@
   "/api/arena-news/route": "/api/arena-news",
   "/api/bull-hub/route": "/api/bull-hub",
   "/api/launch-data/route": "/api/launch-data",
+  "/api/rewards/claim/route": "/api/rewards/claim",
+  "/api/rewards/pool/route": "/api/rewards/pool",
   "/api/runner/challenge/route": "/api/runner/challenge",
   "/api/runner/leaderboard/route": "/api/runner/leaderboard",
   "/api/runner/start/route": "/api/runner/start",
