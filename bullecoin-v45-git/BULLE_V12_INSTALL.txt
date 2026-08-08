@@ -1,0 +1,60 @@
+BULLE v12 — LAUNCH DASHBOARD
+
+Launch target:
+Sunday, August 2, 2026 at 4:00 PM
+Timezone: America/Monterrey (UTC-06:00)
+
+New:
+- Live launch countdown
+- Price, market cap, liquidity and 24h volume panel
+- DEX Screener market-data integration after mint configuration
+- Creator fees, 30% weekly pool and distributed-fees transparency
+- Official mint verification and copy button
+- Pump.fun, market and Bull Runner actions
+- Pre-launch states that never invent market values
+
+INSTALL
+1. Stop the server.
+2. Replace:
+   app
+   components
+   lib
+   public
+   tsconfig.json
+3. Keep:
+   .env.local
+   package.json
+   package-lock.json
+   node_modules
+   .git
+
+4. Add this to .env.local now:
+
+NEXT_PUBLIC_BULLE_LAUNCH_AT=2026-08-02T16:00:00-06:00
+BULLE_TOKEN_ADDRESS=
+NEXT_PUBLIC_BULLE_PUMP_URL=
+BULLE_CREATOR_FEES_SOL=0
+BULLE_DISTRIBUTED_SOL=0
+
+5. Build:
+   cd ~/bullecoin
+   rm -rf .next
+   npm run build
+   npm run dev
+
+AFTER TOKEN CREATION
+- Put the exact official mint in BULLE_TOKEN_ADDRESS.
+- Put the exact official pump.fun URL in NEXT_PUBLIC_BULLE_PUMP_URL.
+- Restart the local server.
+- Add the same values to Vercel Environment Variables.
+- Redeploy.
+
+FEES
+Creator-fee values are intentionally manual and default to zero.
+Only update BULLE_CREATOR_FEES_SOL after confirming actual received fees.
+The displayed Bull Runner reward pool is automatically 30% of that figure.
+
+PUBLISH
+git add .
+git commit -m "Add BULLE launch dashboard"
+git push origin main

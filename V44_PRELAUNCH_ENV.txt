@@ -1,0 +1,27 @@
+# BULLE V44 — safe migration variables
+# Do not place a secret key in this file. Secret values belong only in Vercel.
+
+# STAGE 1 — prepare migration while V1 remains official
+NEXT_PUBLIC_LAUNCH_MODE=countdown
+NEXT_PUBLIC_LAUNCH_AT_UTC=2026-08-11T00:00:00Z
+NEXT_PUBLIC_BULLE_MIGRATION_STATUS=prelaunch
+BULLE_MIGRATION_STATUS=prelaunch
+NEXT_PUBLIC_BULLE_TOKEN_VERSION=V1
+NEXT_PUBLIC_BULLE_TOKEN_ADDRESS=EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump
+NEXT_PUBLIC_BULLE_PUMP_URL=https://pump.fun/coin/EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump
+BULLE_TOKEN_MINT=EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump
+REWARD_PAYOUTS_ENABLED=false
+
+# STAGE 2 — after V2 is launched; replace every <NEW_CA>
+NEXT_PUBLIC_LAUNCH_MODE=live
+NEXT_PUBLIC_BULLE_MIGRATION_STATUS=v2
+BULLE_MIGRATION_STATUS=v2
+NEXT_PUBLIC_BULLE_TOKEN_VERSION=V2
+NEXT_PUBLIC_BULLE_TOKEN_ADDRESS=<NEW_CA>
+NEXT_PUBLIC_BULLE_PUMP_URL=https://pump.fun/coin/<NEW_CA>
+BULLE_TOKEN_MINT=<NEW_CA>
+REWARD_PAYOUTS_ENABLED=false
+
+# STAGE 3 — only after the automatic payout wallet owns V2 BULLE and SOL,
+# a test redemption succeeds, and the website shows the new CA everywhere:
+REWARD_PAYOUTS_ENABLED=true

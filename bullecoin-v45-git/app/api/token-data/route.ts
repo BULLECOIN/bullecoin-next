@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { SERVER_BULLE_MINT } from "../../../lib/serverBulleConfig";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +21,7 @@ function getBestPair(pairs: DexPair[]) {
 }
 
 export async function GET() {
-  const mintAddress = SERVER_BULLE_MINT;
+  const mintAddress = process.env.BULLE_TOKEN_MINT;
   const rpcUrl = process.env.SOLANA_RPC_URL ?? "https://api.mainnet-beta.solana.com";
 
   if (!mintAddress) {

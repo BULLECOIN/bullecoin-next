@@ -1,0 +1,43 @@
+BULLE v11 — GAME POLISH, SOUND AND LIVE GARAGE SKINS
+
+New:
+- Web Audio sound effects with on/off control
+- Jump, landing, collision and accepted-score sounds
+- Neon trail and impact particles
+- Collision screen shake
+- Mobile JUMP control
+- Selected Garage skin persists in localStorage
+- Garage skin instantly changes the Bull Runner appearance
+- Share-on-X text includes the selected armor
+- Corrected TypeScript in RunnerProgression.tsx
+
+Competitive integrity:
+- Visual and sound effects do not affect physics or score.
+- Official runs still use deterministic server replay.
+- Real payouts remain disabled pending official rules and review.
+
+Install:
+1. Stop the server.
+2. Replace:
+   app
+   components
+   lib
+   public
+   tsconfig.json
+3. Keep:
+   .env.local
+   package.json
+   package-lock.json
+   node_modules
+   .git
+4. Run:
+   cd ~/bullecoin
+   rm -rf .next
+   npm run build
+   npm run dev
+5. Open:
+   /bull-runner
+6. Publish:
+   git add .
+   git commit -m "Add Bull Runner v11 game polish"
+   git push

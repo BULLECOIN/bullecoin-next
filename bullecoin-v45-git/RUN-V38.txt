@@ -1,0 +1,24 @@
+BULLECOIN V38 — FLOATING WALLET CONNECTOR
+
+RUN LOCALLY
+1. Open Terminal.
+2. Enter the folder:
+   cd ~/Downloads/bullecoin-next-deploy-v38
+3. Install dependencies:
+   npm install
+4. Start:
+   npm run dev
+5. Open http://localhost:3000
+
+BULL HUB CHANGES
+- A wallet button remains floating and visible while scrolling.
+- The wallet selector opens centered over the browser viewport.
+- Installed Phantom, Solflare and Backpack providers are detected.
+- On mobile, unavailable injected providers show Open App and launch the
+  selected wallet's in-app browser.
+- On desktop, unavailable providers link to the wallet extension download.
+- Connected wallet state is shown in the floating button and reused locally.
+
+SECURITY
+- Every swap remains self-custodial and requires wallet approval.
+- Bull Hub never requests a seed phrase or private key.

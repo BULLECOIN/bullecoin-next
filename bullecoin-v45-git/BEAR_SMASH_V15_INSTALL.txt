@@ -1,0 +1,28 @@
+BULLE V15 — CYBER BULL: BEAR SMASH
+
+1. Make a backup of the version currently online.
+2. Upload every file and folder from this ZIP to the project repository.
+3. Keep your existing environment variables in Vercel.
+4. Run: npm install
+5. Run: npm run build
+6. Deploy normally.
+
+OPEN THE GAME
+The arena card now says BEAR SMASH and keeps the existing /bull-runner URL so
+old links do not break.
+
+CURRENT BETA
+- 60-second playable rounds
+- Normal, fast, tank and golden bears
+- Cyber Bull ally that must be protected
+- Combo multiplier up to x5
+- Three lives
+- Stampede special attack
+- Sound toggle
+- Personal best saved in the browser
+- Responsive mobile controls
+
+NEXT SERVER PHASE
+Connect verified scores to the existing wallet/leaderboard backend after the
+new Bear Smash replay validator is completed. Do not enable real token rewards
+until validation, eligibility rules and payout terms are ready.

@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PUBLIC_BULLE_PUMP_URL } from "../lib/publicBulleConfig";
 
 const TREASURY = "5Azx3Gby54UMrATmrUYGSa58evLKhgUgdmHuKAfFyqvg";
-const PUMP_URL = PUBLIC_BULLE_PUMP_URL;
+const PUMP_URL = "https://pump.fun/coin/EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump";
 type TreasuryData = { treasurySol:number|null; treasuryBulle:number|null; treasuryValueUsd:number|null; rewardPoolSol:number; updatedAt:string };
 const money=(value:number|null)=>value===null?"—":new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2}).format(value);
 const amount=(value:number|null,digits=2)=>value===null?"—":value.toLocaleString("en-US",{maximumFractionDigits:digits});

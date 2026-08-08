@@ -1,0 +1,25 @@
+BULLECOIN V35 — SCREENER FIRST + WALLET GAME GATE
+
+RUN LOCALLY
+1. Open Terminal.
+2. Enter the folder:
+   cd ~/Downloads/bullecoin-next-deploy-v35
+3. Install dependencies:
+   npm install
+4. Start:
+   npm run dev
+5. Open http://localhost:3000
+
+V35 CHANGES
+- Bull Hub opens on a 24-hour trending market table.
+- Dexscreener-style columns: pair, price, change, volume, liquidity,
+  market cap and transactions.
+- Selecting a row opens that token's chart and Jupiter trading panel.
+- BULLECOIN remains pinned as the official first market.
+- TIP feature removed; Bull Hub monetization uses Jupiter referral fees only.
+- PLAY BULL SMASH requires a connected wallet and a saved username.
+- Returning connected wallets reuse their locally saved fighter username.
+- Direct access to the game cannot start a round without the wallet profile.
+
+OFFICIAL BULLE MINT
+EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump

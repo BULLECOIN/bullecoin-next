@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { SERVER_BULLE_MINT } from "../../../lib/serverBulleConfig";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+const officialTokenAddress = "EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump";
 const officialTreasuryWallet = "5Azx3Gby54UMrATmrUYGSa58evLKhgUgdmHuKAfFyqvg";
 const wrappedSol = "So11111111111111111111111111111111111111112";
 
@@ -41,7 +41,7 @@ function numberFromEnv(name: string) {
 }
 
 export async function GET() {
-  const tokenAddress = SERVER_BULLE_MINT;
+  const tokenAddress = process.env.BULLE_TOKEN_ADDRESS?.trim() || officialTokenAddress;
   const pumpUrl = process.env.NEXT_PUBLIC_BULLE_PUMP_URL?.trim() ?? "";
   const creatorFeesSol = numberFromEnv("BULLE_CREATOR_FEES_SOL");
   const distributedSol = numberFromEnv("BULLE_DISTRIBUTED_SOL");

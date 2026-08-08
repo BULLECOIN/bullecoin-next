@@ -5,11 +5,11 @@ import BullHubTrade from "./BullHubTrade";
 import WalletPicker from "./WalletPicker";
 import PlayerProfileSetup, { LocalPlayerProfile, readLocalProfile } from "./PlayerProfileSetup";
 import TokenomicsPanel from "./TokenomicsPanel";
-import { PUBLIC_BULLE_MIGRATION_STATUS, PUBLIC_BULLE_MINT, PUBLIC_BULLE_VERSION, PUBLIC_LAUNCH_AT_UTC, PUBLIC_LAUNCH_MODE } from "../lib/publicBulleConfig";
 
 const xUrl = "https://x.com/BulleCoinOF";
 const telegramUrl = "https://t.me/+k7ieRmAdKgpmNjcx";
-const tokenAddress = PUBLIC_BULLE_MINT;
+const officialTokenAddress = "EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump";
+const tokenAddress = process.env.NEXT_PUBLIC_BULLE_TOKEN_ADDRESS?.trim() || officialTokenAddress;
 
 type Destination = {
   href: string;
@@ -21,13 +21,8 @@ type NewsItem = { title: string; url: string; summary: string; author: string; p
 type TrendItem = { name: string; tokenAddress: string; poolAddress: string; dex: string; priceUsd: number; change5m?: number; change1h?: number; change6h?: number; change24h: number; volume24h: number; liquidity: number; marketCap: number | null; buys24h: number; sells24h: number; activeWallets?: number; url: string; imageUrl?: string };
 type ArenaData = { news: NewsItem[]; trends: TrendItem[]; movers: TrendItem[]; updatedAt: string };
 type LiveTokenData = { status: string; priceUsd: number | null; marketCapUsd: number | null; volume24hUsd: number | null; priceChange24h: number | null; updatedAt: string };
-type LaunchCountdown = { days: number; hours: number; minutes: number; seconds: number; active: boolean };
 const compactUsd = (value: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 2 }).format(value || 0);
 const tokenPrice = (value: number) => value < .001 ? `$${value.toPrecision(3)}` : `$${value.toLocaleString("en-US", { maximumFractionDigits: 6 })}`;
-const readCountdown = (): LaunchCountdown => {
-  const remaining = Math.max(0, Date.parse(PUBLIC_LAUNCH_AT_UTC) - Date.now());
-  return { days: Math.floor(remaining / 86400000), hours: Math.floor(remaining / 3600000) % 24, minutes: Math.floor(remaining / 60000) % 60, seconds: Math.floor(remaining / 1000) % 60, active: PUBLIC_LAUNCH_MODE === "countdown" && remaining > 0 };
-};
 
 export default function ArenaLanding() {
   const arenaRef = useRef<HTMLElement | null>(null);
@@ -50,14 +45,6 @@ export default function ArenaLanding() {
   const [newsError, setNewsError] = useState("");
   const [itemCopied, setItemCopied] = useState("");
   const [liveToken, setLiveToken] = useState<LiveTokenData>({ status: "loading", priceUsd: null, marketCapUsd: null, volume24hUsd: null, priceChange24h: null, updatedAt: "" });
-  const [launchCountdown, setLaunchCountdown] = useState<LaunchCountdown>({ days: 0, hours: 0, minutes: 0, seconds: 0, active: false });
-
-  useEffect(() => {
-    const update = () => setLaunchCountdown(readCountdown());
-    update();
-    const timer = window.setInterval(update, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const storedWallet = localStorage.getItem("bulle-active-wallet") || "";
@@ -249,7 +236,6 @@ export default function ArenaLanding() {
       className="arenaLanding arenaExperience"
       onMouseMove={trackPointer}
     >
-      {PUBLIC_BULLE_MIGRATION_STATUS !== "v1" && <div className={`bulleMigrationBanner ${PUBLIC_BULLE_MIGRATION_STATUS}`}><b>{PUBLIC_BULLE_MIGRATION_STATUS === "prelaunch" ? "BULLE V2 MIGRATION PREPARATION" : `BULLE ${PUBLIC_BULLE_VERSION} IS LIVE`}</b><span>{PUBLIC_BULLE_MIGRATION_STATUS === "prelaunch" ? "V1 remains official until the new CA is published. Rewards are paused during migration." : "Verify the official CA before every trade."}</span></div>}
       <div className="arenaScene" aria-hidden="true">
         <img
           src="/bulle-arena-hero.png"
@@ -296,10 +282,8 @@ export default function ArenaLanding() {
         <section className="arenaTitleBlock arenaTitleCompact">
           <h1><span>BULLE</span><strong>COIN</strong></h1>
           <p>THE CYBER BULL OF SOLANA</p>
-          <b>{launchCountdown.active ? "BULLE V2 LAUNCH COUNTDOWN" : PUBLIC_LAUNCH_MODE === "countdown" ? "BULLE V2 LAUNCH UPDATE IN PROGRESS" : "THE ARENA IS LIVE"}</b>
+          <b>THE ARENA IS BEING PREPARED</b>
         </section>
-
-        {launchCountdown.active && <section className="bulleLaunchCountdown" aria-label="BULLE V2 launch countdown"><small>LAUNCHING · AUG 11 · 00:00 UTC</small><div><span><b>{String(launchCountdown.days).padStart(2,"0")}</b><em>DAYS</em></span><i>:</i><span><b>{String(launchCountdown.hours).padStart(2,"0")}</b><em>HOURS</em></span><i>:</i><span><b>{String(launchCountdown.minutes).padStart(2,"0")}</b><em>MIN</em></span><i>:</i><span><b>{String(launchCountdown.seconds).padStart(2,"0")}</b><em>SEC</em></span></div><p>MONDAY · AUG 10 · 6:00 PM MONTERREY</p></section>}
 
         <nav className="arenaMenu" aria-label="BulleCoin arena doors">
           <button
@@ -357,7 +341,7 @@ export default function ArenaLanding() {
           <ul>
             <li>WEBSITE: <b>LIVE</b></li>
             <li>COMMUNITY: <b>GROWING</b></li>
-            <li className="arenaTokenStatus">{PUBLIC_LAUNCH_MODE === "countdown" ? "V1 TOKEN: " : "TOKEN: "}<b>LIVE</b>{tokenAddress&&<button type="button" onClick={copyTokenAddress}>{copied?"CA COPIED":`COPY CA ${tokenAddress.slice(0,4)}...${tokenAddress.slice(-4)}`}</button>}</li>
+            <li className="arenaTokenStatus">TOKEN: <b>LIVE</b>{tokenAddress&&<button type="button" onClick={copyTokenAddress}>{copied?"CA COPIED":`COPY CA ${tokenAddress.slice(0,4)}...${tokenAddress.slice(-4)}`}</button>}</li>
           </ul>
 
           <p>BUILT ON SOLANA</p>

@@ -1,6 +1,4 @@
-import { REWARDS_MIGRATION_LOCKED, SERVER_BULLE_MINT } from "./serverBulleConfig";
-
-export const BULLE_MINT = SERVER_BULLE_MINT;
+export const BULLE_MINT = "EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump";
 export const REWARD_TREASURY = "DHGJ1QA3Um7v2aAWFP6YafPYrXQHQC15SWKnxyY2AfjB";
 export const REWARD_PAYER = "AWNsGEGg5bNFm9yb7mGaFnv8VwHXPp2LmK3Fc23UgoiK";
 export const RP_PER_USD = 10_000;
@@ -29,5 +27,5 @@ export async function readRewardPool(){
  const balanceSol=typeof solJson.result?.value==="number"?solJson.result.value/1e9:0;
  const payerBalanceBulle=(payerTokenJson.result?.value||[]).reduce((sum,item)=>sum+Number(item.account?.data?.parsed?.info?.tokenAmount?.uiAmountString??item.account?.data?.parsed?.info?.tokenAmount?.uiAmount??0),0);
  const payerBalanceSol=typeof payerSolJson.result?.value==="number"?payerSolJson.result.value/1e9:0;
- return {wallet:REWARD_TREASURY,mint:BULLE_MINT,balanceBulle,balanceSol,priceUsd,valueUsd:balanceBulle*priceUsd,funded:balanceBulle>0,payerWallet:REWARD_PAYER,payerBalanceBulle,payerBalanceSol,payerFunded:payerBalanceBulle>0&&payerBalanceSol>0,payoutEnabled:process.env.REWARD_PAYOUTS_ENABLED==="true"&&!REWARDS_MIGRATION_LOCKED,migrationLocked:REWARDS_MIGRATION_LOCKED,updatedAt:new Date().toISOString()};
+ return {wallet:REWARD_TREASURY,mint:BULLE_MINT,balanceBulle,balanceSol,priceUsd,valueUsd:balanceBulle*priceUsd,funded:balanceBulle>0,payerWallet:REWARD_PAYER,payerBalanceBulle,payerBalanceSol,payerFunded:payerBalanceBulle>0&&payerBalanceSol>0,payoutEnabled:process.env.REWARD_PAYOUTS_ENABLED==="true",updatedAt:new Date().toISOString()};
 }

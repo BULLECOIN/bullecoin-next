@@ -1,0 +1,26 @@
+BULLE V16 — STORY, DAILY TOURNAMENT & CYBER GARAGE
+
+TEST IN A SEPARATE FOLDER
+1. Extract this ZIP in Downloads.
+2. Open Terminal and type: cd 
+3. Drag the extracted folder into Terminal and press Enter.
+4. Run: npm install
+5. Run: npm run dev -- -p 3002
+6. Open: http://localhost:3002/bull-runner
+
+NEW IN V16
+- Opens directly in the game interface.
+- Tabs: Play, Ranking, Workshop and Profile.
+- Story mode with Bull Points, levels and permanent progress.
+- Skins and hammers with Story-only multipliers.
+- Tournament mode equalizes every player to x1 power.
+- Three Tournament runs per local calendar day.
+- Best daily Tournament score is stored.
+- Separate Story and Tournament ranking panels.
+- Premium Cyber Bull profile card based on progress.
+- Share profile text to X and download the profile image.
+
+BETA LIMITATIONS
+Progress is stored only in the current browser. Demo ranking names are visual
+placeholders. Global wallet rankings, server anti-cheat validation and real
+rewards remain disabled until the production backend is completed.

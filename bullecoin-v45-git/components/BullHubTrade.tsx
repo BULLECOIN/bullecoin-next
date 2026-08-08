@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import WalletPicker from "./WalletPicker";
-import { PUBLIC_BULLE_MINT } from "../lib/publicBulleConfig";
 
 const SOL_MINT = "So11111111111111111111111111111111111111112";
-const BULLE_MINT = PUBLIC_BULLE_MINT;
+const BULLE_MINT = "EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump";
 const REFERRAL_ACCOUNT = "DvMBw6bVSTPmt3SdD8uUHnSF36ibZcbRbkyveANunVWb";
 const REFERRAL_FEE_BPS = 50;
 

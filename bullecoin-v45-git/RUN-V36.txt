@@ -1,0 +1,25 @@
+BULLECOIN V36 — 15-MARKET SCREENER
+
+RUN LOCALLY
+1. Open Terminal.
+2. Enter the folder:
+   cd ~/Downloads/bullecoin-next-deploy-v36
+3. Install dependencies:
+   npm install
+4. Start:
+   npm run dev
+5. Open http://localhost:3000
+
+V36 CHANGES
+- Bull Hub opens directly on a compact 15-market screener.
+- The separate Chart & Trade tab has been removed.
+- Clicking a market opens its chart and Jupiter buy/sell panel.
+- A Back to 24H Markets button returns to the screener.
+- Added 5M, 1H, 6H, 24H, volume, liquidity, market cap,
+  buys and sells columns.
+- Smaller token rows display more information at once.
+- BULLECOIN remains the pinned official first market.
+- Wallet and username requirement for Bull Smash remains active.
+
+OFFICIAL BULLE MINT
+EfMyYFLjPHR9nfnoJbaNdYPHv4Btzs96Q3ikxmRppump

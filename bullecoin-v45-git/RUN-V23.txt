@@ -1,0 +1,39 @@
+BULLECOIN ARENA V23 — MAC
+
+1. Unzip the package in Downloads.
+2. Open Terminal.
+3. Type: cd 
+4. Drag the BULLE-V23-Market-News-Trends folder into Terminal and press Enter.
+5. Run: npm install
+6. Run: npm run dev
+7. Open in Safari or Chrome: http://localhost:3000/bull-runner
+
+IMPORTANT
+- Do not type the folder path by itself. The command must begin with cd and a space.
+- If port 3000 is busy, Terminal will show another address, usually http://localhost:3001.
+- Game progress is stored locally in the browser.
+- Music starts only after pressing the SOUND or MUSIC button because browsers block automatic audio.
+
+NEW IN V23
+- Four recent editorial crypto stories from the official CoinDesk RSS feed.
+- Four active Solana pools from GeckoTerminal market data.
+- News images, summaries, authors, timestamps and original links.
+- SHARE ON X and COPY LINK controls.
+- Prices, 24-hour change, volume, liquidity, transactions and copyable token CA.
+- News cache: five minutes. Market refresh: sixty seconds.
+- Clear EDITORIAL NEWS, MARKET DATA and UNVERIFIED TOKEN labels.
+
+INCLUDED FROM V20
+- PLAY BULL SMASH opens the game directly.
+- Phantom wallet connection.
+- TOKEN LIVE status and copyable official CA.
+- TOKENOMICS panel.
+- The original arena music is available on the home screen at a lower volume.
+- Downloaded profile cards show the equipped Bull skin and hammer.
+- The complete visible game interface is in English.
+- Warm fantasy tournament interface.
+- Three randomly selected arenas: Neon, Solana and Diamond.
+- Collectible Bull skins, enemy avatars and customizable hammers.
+- Separate Story and Tournament modes.
+- Three daily Tournament runs.
+- Rankings, Workshop and shareable fighter profile.
